@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3735.robot.util.calc;
+package org.usfirst.frc.team3735.robot.util;
 
 import org.usfirst.frc.team3735.robot.util.settings.Func;
 

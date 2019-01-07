@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3735.robot.util.calc;
+package org.usfirst.frc.team3735.robot.util;
 
 public class VortxMath {
 	
@@ -54,10 +54,6 @@ public class VortxMath {
 		return continuousLimit(value, -180, 180);
 	}
 	
-	public static double reverseYaw(double yaw) {
-		return VortxMath.navLimit(yaw + 180);
-	}
-	
 	/**
 	 * Curves a value with fixed points at -1 and 1
 	 * Higher exponents reduce the curve below the y = x line
@@ -83,22 +79,5 @@ public class VortxMath {
 	 */
 	public static double curveAround(double value, double exponent, double stagnant){
 		return curve(value / stagnant, exponent) * stagnant;
-	}
-	
-	public static double squish(double num, double halfway) {
-		return Math.atan(num/halfway) * 2 / Math.PI;
-	}
-	
-	public static double swapYawAngle(double angle) {
-		return 90.0 - angle;
-	}
-	
-	
-	public static double handleDeadband(double val, double deadband) {
-		if(Math.abs(val) < deadband) {
-			return 0;
-		}else {
-			return val;
-		}
 	}
 }

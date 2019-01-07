@@ -1,24 +1,35 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
+package org.usfirst.frc.team3735.robot.subsystems;
 
-package org.usfirst.frc.team3735.robot.Subsystems;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
- * Add your docs here.
- */
 public class Intake extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
+	TalonSRX l1;
+	TalonSRX R1;
+	//
+	public Intake()
+	{
+		super();
+		l1 = new TalonSRX(4);
+		R1 = new TalonSRX(5);
+	}
+	
+//
+	
+	public void setMotor(double d)
+	{
+		
+		l1.set(ControlMode.PercentOutput, d);
+		R1.set(ControlMode.PercentOutput, -d);
+	}
 
-  @Override
-  public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
-  }
+	@Override
+	protected void initDefaultCommand() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 }

@@ -22,4 +22,9 @@ public class RobotMap {
 		public static int rightMotor2 = 	8; //8
 
 	}
+
+	public static class Intake {
+		public static int leftMotor = 4;
+		public static int rightMotor = 5;
+	}
 }

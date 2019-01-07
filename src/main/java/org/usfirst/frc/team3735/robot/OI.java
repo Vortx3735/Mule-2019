@@ -7,7 +7,7 @@
 
 package org.usfirst.frc.team3735.robot;
 
-import org.usfirst.frc.team3735.robot.commands.IntakeSet;
+import org.usfirst.frc.team3735.robot.commands.intake.IntakeSet;
 import org.usfirst.frc.team3735.robot.util.oi.XboxController;
 
 /**

@@ -14,7 +14,6 @@ import org.usfirst.frc.team3735.robot.util.settings.Setting;
 import org.usfirst.frc.team3735.robot.Constants.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -33,12 +32,6 @@ public class Drive extends Subsystem {
 	
 	private WPI_TalonSRX r1;
 	private WPI_TalonSRX r2;
-	
-	private static double dP = 1.0;
-	private static double dI = 0.0;
-	private static double dD = 0.0;
-	private static double dF = 0.0;
-	private static int iZone = 2;
 	
 	public static BooleanSetting brakeEnabled = new BooleanSetting("Brake Mode On", false) {
 
@@ -77,27 +70,7 @@ public class Drive extends Subsystem {
 		setDefaultCommand(new DDxDrive());
 	}
 
-	/*******************************
-	 * Setups for Position and Speed
-	 *******************************/
 
-	public void setupDriveForPositionControl() {
-		l1.configAllowableClosedloopError(0, 0, 0);
-		setLeftPIDF(dP,dI,dD,dF);
-		l1.config_IntegralZone(0, iZone, 0);
-		
-		//slot, value, timeout
-		r1.configAllowableClosedloopError(0, 0, 0);
-		setRightPIDF(dP,dI,dD,dF);
-		r1.config_IntegralZone(0, iZone, 0);
-		
-		setEnableBrake(true);	
-	}
-	/*******************************
-	 * Speed Control Setup
-	 *******************************/
-	public void setupDriveForSpeedControl() {
-	}
 
 	/*******************************
 	 * Slaves Setup
@@ -107,68 +80,8 @@ public class Drive extends Subsystem {
 		r2.follow(r1);
 	}
 
-	public void initSensors() {
-		
-		int absolutePosition = l1.getSelectedSensorPosition(0) & 0xFFF;
-		l1.setSelectedSensorPosition(absolutePosition, 0, 0);
-		l1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);	
-		l1.setSensorPhase(true);
-		
-		absolutePosition = r1.getSelectedSensorPosition(0) & 0xFFF;
-		r1.setSelectedSensorPosition(absolutePosition, 0, 0);
-		r1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-		//r1.reverseSensor(true);
-		r1.setSensorPhase(true);
-		//r1.setInverted(true);		
-		//l1.configNominalOutputVoltage(0.0, -0.0);
-//		r1.configNominalOutputForward(0, 0);
-//		r1.configNominalOutputReverse(0, 0);
-//		r1.configPeakOutputForward(1, 0);
-//		r1.configPeakOutputReverse(-1, 0);
-	}
 	
-	public void setPIDSettings(double kp, double ki, double kd){
-		setLeftPID(kp, ki, kd);
-		setRightPID(kp, ki, kd);
-	}
 	
-	public void setPIDFSettings(double kp, double ki, double kd, double kf){
-		setLeftPIDF(kp, ki, kd, kf);
-		setRightPIDF(kp, ki, kd, kf);
-	}
-	
-	public void setLeftPIDF(double kp, double ki, double kd, double kf) {
-		setLeftPID(kp,ki,kd);
-		l1.config_kF(0, kf, 0);
-	}
-	
-	public void setRightPIDF(double kp, double ki, double kd, double kf) {
-		setRightPID(kp,ki,kd);
-		r1.config_kF(0, kf, 0);
-	}
-
-	public void setLeftPID(double kp, double ki, double kd){
-		l1.config_kP(0, kp, 0);
-		l1.config_kI(0, ki, 0);
-		l1.config_kD(0, kd, 0);
-	}
-	
-	public void setRightPID(double kp, double ki, double kd){
-		r1.config_kP(0, kp, 0);
-		r1.config_kI(0, ki, 0);
-		r1.config_kD(0, kd, 0);
-	}
-//	/******************************
-//	 * changing the Talon control mode
-//	 */
-//	public void changeControlMode(TalonControlMode t){
-//		l1.changeControlMode(t);
-//		r1.changeControlMode(t);
-//	}
-
-	/*********************************
-	 * Configuring left and right PID Peak Voltages
-	 */
 	public void setLeftPeakVoltage(double vol){
 		//l1.configPeakOutputVoltage(vol, -vol);
 		l1.configPeakOutputForward(vol, 0);
@@ -182,14 +95,7 @@ public class Drive extends Subsystem {
 		r1.configPeakOutputReverse(-vol, 0);
 	}
 
-	public void resetEncodersPositions(){
-		int absolutePosition = l1.getSelectedSensorPosition(0) & 0xFFF;
-		l1.setSelectedSensorPosition(absolutePosition, 0, 0);
-		
-		absolutePosition = r1.getSelectedSensorPosition(0) & 0xFFF;
-		r1.setSelectedSensorPosition(absolutePosition, 0, 0);
 
-	}
 	
 	public double getCurrentPercent(){
 		return (r1.getMotorOutputPercent() + l1.getMotorOutputPercent())/2;	
@@ -239,13 +145,6 @@ public class Drive extends Subsystem {
 		setLeftRight(move + rotateValue, move - rotateValue);
 	}
 	
-	/**
-	 * Limits the left and right speeds so that rotation is consistent
-	 * across all move values. Modifies speed for consistent rotation.
-	 * @param move
-	 * @param rotate
-	 */
-
 
 
 	
@@ -279,31 +178,7 @@ public class Drive extends Subsystem {
 		r1.set(ControlMode.PercentOutput, -right);
 	}
 
-	/**
-     * 
-     * @param spd	the target speed in inches per second
-     * @return	the percent, which converts spd into normal getspeed units (rpm), and then
-     * 			compensates for the deadzone using gathered data
-     */
-//    
-//	public void setLeftRightDistance(double left, double right) {
-//		l1.set(ControlMode.Position, left / (Constants.Drive.InchesPerRotation)); //OneRotationInches
-//		r1.set(ControlMode.Position, right / (Constants.Drive.InchesPerRotation ));
-//		
-//	}
-//	
-	public double getRotationsLeft() {
-		return l1.getSelectedSensorPosition(0);
-	}
-	public double getRotationsRight() {
-		return r1.getSelectedSensorPosition(0);
-	}
-	public double getLeftPositionInches() {
-		return getRotationsLeft() * (Constants.Drive.InchesPerRotation);
-	}
-	public double getRightPositionInches() {
-		return getRotationsRight() * (Constants.Drive.InchesPerRotation);
-	}
+
 	/******************************************
 	 * The Logs
 	 ******************************************/

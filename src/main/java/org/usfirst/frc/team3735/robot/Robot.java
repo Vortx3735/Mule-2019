@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team3735.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -15,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team3735.robot.subsystems.Drive;
 import org.usfirst.frc.team3735.robot.subsystems.Intake;
+import org.usfirst.frc.team3735.robot.subsystems.Jevois;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,6 +31,7 @@ public class Robot extends TimedRobot {
 	public static Autonomous autoLogic;
 	public static Intake intake;
 	Command m_autonomousCommand;
+	public static Jevois vision;
 	
 
 	/**
@@ -40,7 +43,11 @@ public class Robot extends TimedRobot {
 		drive = new Drive();
 		intake = new Intake();
 		oi = new OI();
-		autoLogic = new Autonomous();
+		vision = new Jevois();
+		//autoLogic = new Autonomous();
+		
+
+
 		
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -59,7 +66,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-		drive.log();
+		//drive.log();
 	}
 
 	/**
@@ -76,7 +83,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		System.out.println("Autonomous Started");
-		autoLogic.startCommand();
+		//autoLogic.startCommand();
 	}
 
 	/**
@@ -85,7 +92,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		drive.log();
+		//drive.log();
 	}
 
 	@Override
@@ -94,9 +101,11 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.cancel();
-		}
+		// if (m_autonomousCommand != null) {
+		// 	m_autonomousCommand.cancel();
+		// }
+		vision.stopCameraStream();
+		vision.startCameraStream();
 	}
 //
 	/**

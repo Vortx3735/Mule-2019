@@ -104,25 +104,6 @@ public class Jevois {
         bytes = visionPort.writeString(cmd + "\n");
         System.out.println("wrote " +  bytes + "/" + (cmd.length()+1) + " bytes, cmd: " + cmd);
 	    return bytes;
-	};
-	
-	private void sleep(int millis) {
-		try {
-			jevoisListenerThread.sleep(millis);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-    
-    /**
-     * This thread runs a periodic task in the background to listen for vision camera packets.
-     */
-    Thread jevoisListenerThread = new Thread(new Runnable(){
-    	public void run(){
-    		while(true){
-				System.out.println(visionPort.readString());
-				sleep(20);
-    		}
-    	}
-    });
+	};   
+
 }

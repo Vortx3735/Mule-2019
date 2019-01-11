@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team3735.robot.subsystems.Hatch;
 import org.usfirst.frc.team3735.robot.subsystems.Drive;
 import org.usfirst.frc.team3735.robot.subsystems.Intake;
 import org.usfirst.frc.team3735.robot.subsystems.Jevois;
@@ -32,6 +33,7 @@ public class Robot extends TimedRobot {
 	public static Intake intake;
 	Command m_autonomousCommand;
 	public static Jevois vision;
+	public static Hatch hatch;
 	
 
 	/**
@@ -42,8 +44,11 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		drive = new Drive();
 		intake = new Intake();
+		hatch = new Hatch();
 		oi = new OI();
-		vision = new Jevois();
+		
+
+		//vision = new Jevois();
 		//autoLogic = new Autonomous();
 		
 
@@ -104,8 +109,6 @@ public class Robot extends TimedRobot {
 		// if (m_autonomousCommand != null) {
 		// 	m_autonomousCommand.cancel();
 		// }
-		vision.stopCameraStream();
-		vision.startCameraStream();
 	}
 //
 	/**

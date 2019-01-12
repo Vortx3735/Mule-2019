@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class HatchSet extends Command {
-	boolean b = true;
+	boolean b;
     public HatchSet(boolean b) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);

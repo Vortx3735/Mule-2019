@@ -23,8 +23,8 @@ public class Drive extends Subsystem {
 
 	public static Setting moveExponent = new Setting("Move Exponent",3);
 	public static Setting turnExponent = new Setting("Turn Exponent", 3);
-	public static Setting scaledMaxMove = new Setting("Scaled Max Move", .8);
-	public static Setting scaledMaxTurn = new Setting("Scaled Max Turn", .5);
+	public static Setting scaledMaxMove = new Setting("Scaled Max Move", .8); //changes speed of motor (IMPORTANT)
+	public static Setting scaledMaxTurn = new Setting("Scaled Max Turn", .5); // changes speed of turn motor (IMPORTANT)
 	
 	private WPI_TalonSRX l1;
 	private WPI_TalonSRX l2;

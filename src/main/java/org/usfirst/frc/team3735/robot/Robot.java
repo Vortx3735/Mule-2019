@@ -18,6 +18,7 @@ import org.usfirst.frc.team3735.robot.subsystems.Hatch;
 import org.usfirst.frc.team3735.robot.subsystems.Drive;
 import org.usfirst.frc.team3735.robot.subsystems.Intake;
 import org.usfirst.frc.team3735.robot.subsystems.Jevois;
+import org.usfirst.frc.team3735.robot.subsystems.Pivot;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -34,6 +35,7 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	public static Jevois vision;
 	public static Hatch hatch;
+	public static Pivot pivot;
 	
 
 	/**
@@ -45,6 +47,7 @@ public class Robot extends TimedRobot {
 		drive = new Drive();
 		intake = new Intake();
 		hatch = new Hatch();
+		pivot = new Pivot();	
 		oi = new OI();
 		
 

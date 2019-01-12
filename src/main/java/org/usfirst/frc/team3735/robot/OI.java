@@ -7,9 +7,11 @@
 
 package org.usfirst.frc.team3735.robot;
 
+import org.usfirst.frc.team3735.robot.commands.Pivot.PivotSet;
 import org.usfirst.frc.team3735.robot.commands.hatch.HatchSet;
 import org.usfirst.frc.team3735.robot.commands.intake.IntakeMotorSet;
 import org.usfirst.frc.team3735.robot.commands.intake.SolenoidSet;
+import org.usfirst.frc.team3735.robot.subsystems.Pivot;
 import org.usfirst.frc.team3735.robot.util.oi.XboxController;
 
 /**
@@ -30,6 +32,8 @@ public class OI {
 		main.x.whileHeld(new IntakeMotorSet(0.0));
 		main.lb.whenPressed(new HatchSet(true));
 		main.rb.whenPressed(new HatchSet(false));
+		main.pov180.whenPressed(new PivotSet(true));
+		main.pov270.whenPressed(new PivotSet(false));
 		main.pov0.whenPressed(new SolenoidSet(true));
 		main.pov90.whenPressed(new SolenoidSet(false));
 		

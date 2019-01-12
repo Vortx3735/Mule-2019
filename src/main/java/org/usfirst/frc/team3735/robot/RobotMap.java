@@ -34,6 +34,8 @@ public class RobotMap {
 	}
 
 	public static class Hatch {
-		public static int solenoid = 4;
+		public static int solenoid = 5;
+		public static int solenoid2 = 6;
+		public static int pivot = 4;
 	}
 }

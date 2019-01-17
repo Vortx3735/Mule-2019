@@ -74,7 +74,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-		//drive.log();
+		drive.log();
 	}
 
 	/**
@@ -120,6 +120,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		drive.log();
 	}
 
 	/**

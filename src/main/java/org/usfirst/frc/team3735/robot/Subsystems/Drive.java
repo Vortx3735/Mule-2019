@@ -13,6 +13,7 @@ import org.usfirst.frc.team3735.robot.util.settings.Setting;
 import org.usfirst.frc.team3735.robot.Constants.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -55,10 +56,9 @@ public class Drive extends Subsystem {
 		
 		l1.setInverted(true);
 		l2.setInverted(true);
-		r1.setInverted(true);
-		r2.setInverted(true);
 		
 		setupSlaves();
+		initSensors();
 		setEnableBrake(true);
 	}
 	//
@@ -79,7 +79,18 @@ public class Drive extends Subsystem {
 		r2.follow(r1);
 	}
 
-	
+	public void initSensors() {
+		
+		l1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);	
+		l1.setSelectedSensorPosition(0);
+		l1.setSensorPhase(true);
+		
+		
+		r1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		r1.setSelectedSensorPosition(0);
+		r1.setSensorPhase(true);
+		System.out.println("added sensors");
+	}
 	
 	public void setLeftPeakVoltage(double vol){
 		//l1.configPeakOutputVoltage(vol, -vol);
@@ -174,16 +185,18 @@ public class Drive extends Subsystem {
 		
 		
 		//r1.set(-1 * right);
-		r1.set(ControlMode.PercentOutput, -right);
+		r1.set(ControlMode.PercentOutput, right);
 	}
+
+	
 
 
 	/******************************************
 	 * The Logs
 	 ******************************************/
 	public void log() {
-		//SmartDashboard.putNumber("Left Drive Position", l1.getSelectedSensorPosition(0));
-		//SmartDashboard.putNumber("Right Drive Position", r1.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("Left Drive Position", l1.getSelectedSensorPosition(0));
+		SmartDashboard.putNumber("Right Drive Position", r1.getSelectedSensorPosition(0));
 		
 		//SmartDashboard.putNumber("Left Drive Velocity", l1.getSelectedSensorVelocity(0));
 		//SmartDashboard.putNumber("Right Drive Velocity", r1.getSelectedSensorVelocity(0));

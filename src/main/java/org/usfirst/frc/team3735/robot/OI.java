@@ -41,7 +41,7 @@ public class OI {
 	}
 	//
 	public double getDriveMove() {
-		return (main.getRightTrigger() - main.getLeftTrigger());
+		return -1*(main.getRightTrigger() - main.getLeftTrigger());
 		//return main.getLeftY();
 	}
 

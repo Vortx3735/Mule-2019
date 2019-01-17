@@ -7,10 +7,8 @@
 
 package org.usfirst.frc.team3735.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 //import com.sun.org.apache.xpath.internal.operations.Bool;
 
-import org.usfirst.frc.team3735.robot.Robot;
 import org.usfirst.frc.team3735.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.Solenoid;
@@ -24,14 +22,12 @@ public class Pivot extends Subsystem {
   // here. Call these from Commands.
   Solenoid pivot;
   
-  public Pivot()
-  {
+  public Pivot() {
     pivot = new Solenoid(RobotMap.Hatch.pivot);
     
   }
 
-  public void setPivot(Boolean b)
-  {
+  public void setPivot(boolean b) {
     pivot.set(b);
   }
 

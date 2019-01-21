@@ -25,11 +25,10 @@ public class RobotMap {
 	}
 
 	public static class Intake {
-		public static int leftMotor = 4;
-		public static int rightMotor = 5;
+		public static int motor = 7;
 
-		public static int leftSol = 1;
-		public static int rightSol = 2;
+		public static int leftSol = 2;
+		public static int rightSol = 3;
 	}
 
 	public static class Hatch {

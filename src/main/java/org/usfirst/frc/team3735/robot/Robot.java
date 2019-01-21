@@ -11,6 +11,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -49,16 +50,11 @@ public class Robot extends TimedRobot {
 		hatch = new Hatch();
 		pivot = new Pivot();	
 		oi = new OI();
-		
+		autoLogic = new Autonomous();
 
-		//vision = new Jevois();
-		//autoLogic = new Autonomous();
-		
-
-
-		
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
+
 	}
 
 	/**
@@ -109,9 +105,12 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		// if (m_autonomousCommand != null) {
-		// 	m_autonomousCommand.cancel();
-		// }
+		if (m_autonomousCommand != null) {
+			m_autonomousCommand.cancel();
+		}
+
+		// Shuffleboard Code
+		System.out.print("TELEOP INIT");
 	}
 //
 	/**

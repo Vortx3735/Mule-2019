@@ -45,9 +45,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		drive = new Drive();
-		intake = new Intake();
-		hatch = new Hatch();
-		pivot = new Pivot();	
+		//intake = new Intake();
+		//hatch = new Hatch();
+		//pivot = new Pivot();	
 		oi = new OI();
 		
 

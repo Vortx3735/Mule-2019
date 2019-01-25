@@ -16,7 +16,7 @@ package org.usfirst.frc.team3735.robot;
 public class RobotMap {
 	public static class Drive{
 		public static int leftMotor1 =		1;
-		public static int leftMotor2 = 		8;
+		public static int leftMotor2 = 		7;
 		
 		public static int rightMotor1 = 	3;
 		public static int rightMotor2 = 	6;
@@ -25,7 +25,7 @@ public class RobotMap {
 	}
 
 	public static class Intake {
-		public static int motor = 7;
+		public static int motor = 8;
 
 		public static int leftSol = 2;
 		public static int rightSol = 3;

@@ -7,11 +7,6 @@
 
 package org.usfirst.frc.team3735.robot;
 
-import org.usfirst.frc.team3735.robot.commands.Pivot.PivotSet;
-import org.usfirst.frc.team3735.robot.commands.hatch.HatchSet;
-import org.usfirst.frc.team3735.robot.commands.intake.IntakeMotorSet;
-import org.usfirst.frc.team3735.robot.commands.intake.SolenoidSet;
-import org.usfirst.frc.team3735.robot.subsystems.Pivot;
 import org.usfirst.frc.team3735.robot.util.oi.XboxController;
 
 /**

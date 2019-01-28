@@ -1,8 +1,9 @@
 package org.usfirst.frc.team3735.robot.util.settings;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import java.util.ArrayList;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Setting extends Func{
 	
@@ -107,6 +108,24 @@ public class Setting extends Func{
 	//Override me if you want!
 	public void valueChanged(double val) {
 		
+	}
+	
+	public Func reverse() {
+		return new Func() {
+			@Override
+			public double getValue() {
+				return -getValueFetched();
+			}
+		};
+	}
+	
+	public Func multiply(Func s) {
+		return new Func() {
+			@Override
+			public double getValue() {
+				return getValueFetched() * s.getValue();
+			}
+		};
 	}
 	
 }

@@ -156,8 +156,6 @@ public class Drive extends Subsystem {
 	}
 	
 
-
-	
 	/*******************************
 	 * Brake Mode
 	 *******************************/
@@ -212,6 +210,18 @@ public class Drive extends Subsystem {
 	public void debugLog() {
 
 	}
+	public double getLeftPosition() {
+		return l1.getSelectedSensorPosition(0);
+	}
+
+	public double getRightPosition() {
+		return r1.getSelectedSensorPosition(0);
+	}
+	public void resetEncodersPositions() {
+		l1.setSelectedSensorPosition(0);
+		r1.setSelectedSensorPosition(0);
+	}
+	
 
 
 

@@ -14,11 +14,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team3735.robot.subsystems.Hatch;
 import org.usfirst.frc.team3735.robot.subsystems.Drive;
-import org.usfirst.frc.team3735.robot.subsystems.Intake;
 import org.usfirst.frc.team3735.robot.subsystems.Jevois;
-import org.usfirst.frc.team3735.robot.subsystems.Pivot;
+import org.usfirst.frc.team3735.robot.subsystems.Navigation;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,11 +29,9 @@ public class Robot extends TimedRobot {
 	public static Drive drive;
 	public static OI oi;
 	public static Autonomous autoLogic;
-	public static Intake intake;
 	Command m_autonomousCommand;
 	public static Jevois vision;
-	public static Hatch hatch;
-	public static Pivot pivot;
+	public static Navigation nav;
 	
 
 	/**
@@ -45,9 +41,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		drive = new Drive();
-		//intake = new Intake();
-		//hatch = new Hatch();
-		//pivot = new Pivot();	
+		nav = new Navigation();
 		oi = new OI();
 		
 
@@ -75,6 +69,8 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		drive.log();
+		nav.log();
+		nav.integrate();
 	}
 
 	/**
@@ -121,6 +117,8 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		drive.log();
+		nav.log();
+		nav.integrate();
 	}
 
 	/**

@@ -7,11 +7,11 @@ public class Constants {
 	public class Drive {
 
 		//TODO: testing on these values
-		public static final double maxVelocity = 1.5; //m/s
-		public static final double maxAccel = 2; //m/s^2
-		public static final double maxJerk = 40; //m/s^3
-		public static final double wheelBase = 0.5; //m
-		public static final double wheelDiam = 0.1016; //m  //4 in to m
+		public static final double maxVelocity = 200; //in/s
+		public static final double maxAccel = 200; //in/s^2
+		public static final double maxJerk = 1500; //in/s^3
+		public static final double wheelBase = 29; //in
+		public static final double wheelDiam = 4; //in
 		public static final int ticksPerRotation = 4096; //4096 for mag encoder
 		public static final double InchesPerRotation = 4*Math.PI;
 

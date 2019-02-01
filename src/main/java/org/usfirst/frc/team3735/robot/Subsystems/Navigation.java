@@ -3,17 +3,12 @@ package org.usfirst.frc.team3735.robot.subsystems;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team3735.robot.Robot;
-import org.usfirst.frc.team3735.robot.*;
 import org.usfirst.frc.team3735.robot.util.calc.*;
 import org.usfirst.frc.team3735.robot.util.hardware.VortxAhrs;
-import org.usfirst.frc.team3735.robot.util.settings.Setting;
 import org.usfirst.frc.team3735.robot.util.profiling.*;
 
 //import Robot.Side;
@@ -63,8 +58,8 @@ public class Navigation extends Subsystem {
     
     public synchronized void integrate(){
     	synchronized(posLock){
-    		curLeft = Robot.drive.getLeftPosition();
-        	curRight = Robot.drive.getRightPosition();
+    		curLeft = Robot.drive.getLeftInches();
+        	curRight = Robot.drive.getRightInches();
         	
         	double dd = ((curLeft-prevLeft) + (curRight-prevRight)) * .5;
         	

@@ -28,18 +28,7 @@ public class SmartMap {
 		positions.add(pos);
 		displayPositions();
 	}
-	
-	public static void highLightPosition(Position pos) {
-		if(pos != null) {
-	    	table.putNumberArray("highlightedX", new double[]{RobotPos.x});
-			table.putNumberArray("highlightedY", new double[]{RobotPos.y});
-			table.putNumberArray("highlightedYaw", new double[]{RobotPos.yaw});
-		}else {
-	    	table.putNumberArray("highlightedX", new double[]{});
-			table.putNumberArray("highlightedY", new double[]{});
-			table.putNumberArray("highlightedYaw", new double[]{});
-		}
-	}
+
 	
 	public static void displayPositions() {
 		posxs = new double[positions.size()];

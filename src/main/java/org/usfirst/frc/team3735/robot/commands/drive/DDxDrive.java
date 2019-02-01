@@ -75,10 +75,12 @@ public class DDxDrive extends Command {
 		moveMotor = moveMotor * Math.pow(Math.abs(moveMotor), Drive.moveExponent.getValue() - 1);
 		turnMotor = turnMotor * Math.pow(Math.abs(turnMotor), Drive.turnExponent.getValue() - 1);
 		
-    	Robot.drive.normalDrive(
-    			move.feed(Robot.oi.getDriveMove()) * Drive.scaledMaxMove.getValue(), 
-    			turn.feed(Robot.oi.getDriveTurn()) * Drive.scaledMaxTurn.getValue()
-		);
+
+		Robot.drive.normalDrive(Robot.oi.getDriveMove(), Robot.oi.getDriveTurn());
+    	// Robot.drive.normalDrive(
+    	// 		move.feed(Robot.oi.getDriveMove()) * Drive.scaledMaxMove.getValue(), 
+    	// 		turn.feed(Robot.oi.getDriveTurn()) * Drive.scaledMaxTurn.getValue()
+		// );
     	
     	
     }

@@ -10,8 +10,8 @@ public class MeterStraight extends CommandGroup{
         System.out.println("Meter straight called");
         Waypoint[] waypoints = new Waypoint[2];
         waypoints[0] = new Waypoint(0, 0, 0);
-        waypoints[1] = new Waypoint(1, 0, 0);
+        waypoints[1] = new Waypoint(100, 0, 0);
         System.out.println("Creating new waypoints");
-        addSequential(new PathFollower(waypoints), 10);
+        addSequential(new PathFollower(waypoints));
     }
 }

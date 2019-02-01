@@ -29,7 +29,6 @@ public class Robot extends TimedRobot {
 	public static Drive drive;
 	public static OI oi;
 	public static Autonomous autoLogic;
-	Command m_autonomousCommand;
 	public static Jevois vision;
 	public static Navigation nav;
 	
@@ -44,15 +43,8 @@ public class Robot extends TimedRobot {
 		nav = new Navigation();
 		oi = new OI();
 		
-
+		autoLogic = new Autonomous();
 		//vision = new Jevois();
-		//autoLogic = new Autonomous();
-		
-
-
-		
-		//m_chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
 	}
 
 	/**
@@ -87,7 +79,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		System.out.println("Autonomous Started");
-		//autoLogic.startCommand();
+		autoLogic.startCommand();
 	}
 
 	/**
@@ -96,7 +88,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		//drive.log();
+		drive.log();
+		nav.log();
+		nav.integrate();
 	}
 
 	@Override

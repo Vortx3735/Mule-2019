@@ -185,22 +185,56 @@ public class Drive extends Subsystem {
 		//r1.set(-1 * right);
 		r1.set(ControlMode.PercentOutput, right);
 	}
-
 	
-
+double pastLeftInches;
+double pastRightInches;	
+double pastLeftVel;
+double pastRightVel;
+double pastLeftAccel;
+double pastRightAccel;
 
 	/******************************************
 	 * The Logs
 	 ******************************************/
 	public void log() {
-		SmartDashboard.putNumber("Left Drive Position", l1.getSelectedSensorPosition(0));
-		SmartDashboard.putNumber("Right Drive Position", r1.getSelectedSensorPosition(0));
 		
-		//SmartDashboard.putNumber("Left Drive Velocity", l1.getSelectedSensorVelocity(0));
-		//SmartDashboard.putNumber("Right Drive Velocity", r1.getSelectedSensorVelocity(0));
+		double leftInches = l1.getSelectedSensorPosition()*Constants.Drive.InchesPerTick;
+		double rightInches = r1.getSelectedSensorPosition()*Constants.Drive.InchesPerTick;
+
+		SmartDashboard.putNumber("Left Drive Inches", leftInches);
+		SmartDashboard.putNumber("Right Drive Inches", rightInches);
+
+		double leftVelocity = (leftInches - pastLeftInches)/Constants.dt;
+		double rightVelocity = (rightInches - pastRightInches)/Constants.dt;
+		
+		SmartDashboard.putNumber("Left Drive Velocity", leftVelocity);
+		SmartDashboard.putNumber("Right Drive Velocity", rightVelocity);
+
+		double leftAccel = (leftVelocity-pastLeftVel)/Constants.dt;
+		double rightAccel = (rightVelocity-pastRightVel)/Constants.dt;
+
+		SmartDashboard.putNumber("Left Drive Acceleration", leftAccel);
+		SmartDashboard.putNumber("Right Drive Acceleration", rightAccel);
+
+		double leftJerk = (leftAccel - pastLeftAccel)/Constants.dt;
+		double rightJerk = (rightAccel - pastRightAccel)/Constants.dt;
+
+		SmartDashboard.putNumber("Left Drive Jerk", leftJerk);
+		SmartDashboard.putNumber("Right Drive Jerk", rightJerk);
+
+		pastRightInches = rightInches;
+		pastLeftInches = leftInches;
+
+		pastLeftVel = leftVelocity;
+		pastRightVel = rightVelocity;
+
+		pastLeftAccel = leftAccel;
+		pastRightAccel = rightAccel;
 		
 		SmartDashboard.putNumber("Left Drive Percent Output", l1.getMotorOutputPercent());
 		SmartDashboard.putNumber("Right Drive Percent Output", r1.getMotorOutputPercent());
+
+		
 		
 		//SmartDashboard.putNumber("Left Target", l1.getClosedLoopTarget(0));
 		//SmartDashboard.putNumber("Right Target", r1.getClosedLoopTarget(0));
@@ -216,6 +250,14 @@ public class Drive extends Subsystem {
 
 	public double getRightPosition() {
 		return r1.getSelectedSensorPosition(0);
+	}
+
+	public double getLeftInches() {
+		return getLeftPosition()*Constants.Drive.InchesPerTick;
+	}
+
+	public double getRightInches() {
+		return getRightPosition() *Constants.Drive.InchesPerTick;
 	}
 	public void resetEncodersPositions() {
 		l1.setSelectedSensorPosition(0);

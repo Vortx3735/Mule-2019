@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team3735.robot.subsystems.Drive;
 import org.usfirst.frc.team3735.robot.subsystems.Jevois;
 import org.usfirst.frc.team3735.robot.subsystems.Navigation;
+import org.usfirst.frc.team3735.robot.util.calc.LimeLight;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,6 +32,7 @@ public class Robot extends TimedRobot {
 	public static Autonomous autoLogic;
 	public static Jevois vision;
 	public static Navigation nav;
+	public static LimeLight limelight;
 	
 
 	/**
@@ -63,6 +65,7 @@ public class Robot extends TimedRobot {
 		drive.log();
 		nav.log();
 		nav.integrate();
+		limelight.log();
 	}
 
 	/**

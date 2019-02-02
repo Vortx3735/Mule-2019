@@ -14,6 +14,21 @@ import edu.wpi.first.networktables.NetworkTableInstance;
  */
 public class LimeLight {
 
+    public void log()
+    {
+        System.out.println(getValidTarget());
+        System.out.println(getHorOffset());
+        System.out.println(getVerOffset());
+        System.out.println(getTargetArea());
+        System.out.println(getSkewRotation());
+        System.out.println(getLatency());
+        System.out.println(getSideShortest());
+        System.out.println(getSideLongest());
+        System.out.println(getHorSidelength());
+        System.out.println(getVerSidelength());
+        System.out.println(getPipelineIndex());
+    }
+
     // getters
 
     public double getValidTarget() {
@@ -61,6 +76,7 @@ public class LimeLight {
     }
 
     // setters
+    
 
     public void setLedMode(double ledMode) {
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(ledMode);

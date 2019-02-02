@@ -8,6 +8,7 @@
 package org.usfirst.frc.team3735.robot.util.calc;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -16,7 +17,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 /**
  * Add your docs here.
  */
-public class LimeLight {
+public class LimeLight extends Subsystem {
 
     NetworkTable table;
     NetworkTableEntry tx; 
@@ -50,7 +51,7 @@ public class LimeLight {
 
         setCamMode(0);
         setLedMode(0);
-        setPipeline(0);
+        setPipeline(1);
         setStreamMode(0);
     }
 
@@ -110,8 +111,15 @@ public class LimeLight {
         snapshot.setNumber(Snapshot);
     }
 
+    @Override
+    protected void initDefaultCommand() {
+
+    }
+
     public void log() {
        System.out.println("tx: " + getTx() + " ty: " + getTy() + " ta: " + getTa() + " ts: " + getTs() + " tl: " + getTl() ); 
     }
+
+   
 
 }

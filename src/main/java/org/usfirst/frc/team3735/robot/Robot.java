@@ -31,7 +31,7 @@ public class Robot extends TimedRobot {
 	public static OI oi;
 	public static Autonomous autoLogic;
 	public static Jevois vision;
-	public static Navigation nav;
+	public static Navigation navigation;
 	public static LimeLight limelight;
 	
 
@@ -42,7 +42,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		drive = new Drive();
-		nav = new Navigation();
+		navigation = new Navigation();
 		oi = new OI();
 		limelight = new LimeLight();
 		autoLogic = new Autonomous();
@@ -63,8 +63,8 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		drive.log();
-		nav.log();
-		nav.integrate();
+		navigation.log();
+		navigation.integrate();
 		limelight.log();
 	}
 
@@ -92,8 +92,8 @@ public class Robot extends TimedRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		drive.log();
-		nav.log();
-		nav.integrate();
+		navigation.log();
+		navigation.integrate();
 	}
 
 	@Override
@@ -114,8 +114,8 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		drive.log();
-		nav.log();
-		nav.integrate();
+		navigation.log();
+		navigation.integrate();
 	}
 
 	/**

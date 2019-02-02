@@ -3,9 +3,15 @@ package org.usfirst.frc.team3735.robot.subsystems;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.PIDSource;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team3735.robot.Constants;
 import org.usfirst.frc.team3735.robot.Robot;
 import org.usfirst.frc.team3735.robot.util.calc.*;
 import org.usfirst.frc.team3735.robot.util.hardware.VortxAhrs;
@@ -14,7 +20,7 @@ import org.usfirst.frc.team3735.robot.util.profiling.*;
 //import Robot.Side;
 
 
-public class Navigation extends Subsystem {
+public class Navigation extends Subsystem implements PIDSource, PIDOutput {
 	private static final int BUMP_THRESHOLD = 1;
 
 	private VortxAhrs ahrs;
@@ -28,6 +34,8 @@ public class Navigation extends Subsystem {
 	private double prevRight = 0;
 	private double curLeft;
 	private double curRight;
+
+	PIDController controller;
 	
 	public Navigation(){
 		table = NetworkTableInstance.getDefault().getTable("MAP");
@@ -40,7 +48,13 @@ public class Navigation extends Subsystem {
 		curLeft = Robot.drive.getLeftPosition();
     	curRight = Robot.drive.getRightPosition();
     	prevLeft = curLeft;
-    	prevRight = curRight;
+		prevRight = curRight;
+		
+		controller = new PIDController(0, 0, 0, this, this);
+		controller.setOutputRange(-.7, .7);
+    	controller.setInputRange(-180, 180);
+    	controller.setContinuous();
+    	controller.setAbsoluteTolerance(2);
 	}
 
 	public synchronized void setPosition(Position p){
@@ -181,6 +195,28 @@ public class Navigation extends Subsystem {
 	
 	public double getYawToLocation(Location loc) {
 		return pos.yawTo(loc);
+	}
+
+	@Override
+	public void setPIDSourceType(PIDSourceType pidSource) {}
+
+	@Override
+	public PIDSourceType getPIDSourceType() {
+		return PIDSourceType.kDisplacement;
+	}
+
+	@Override
+	public double pidGet() {
+		return getYaw();
+	}
+
+	@Override
+	public void pidWrite(double output) {
+		Robot.drive.setLeftRight(output, -output);
+	}
+
+	public PIDController getController() {
+		return controller;
 	}
 	    
 }

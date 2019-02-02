@@ -52,9 +52,13 @@ public class LimeLight {
         pipeline = table.getEntry("pipeline");
         stream = table.getEntry("stream");
         snapshot = table.getEntry("snapshot");
+
+        //change these values when testing.
         mountAngle = 0;
         mountHeight = 0;
         targetHeight = 0;
+        //
+
         setCamMode(0);
         setLedMode(0);
         setPipeline(0);
@@ -68,6 +72,7 @@ public class LimeLight {
             (Math.tan( getMountAngle() )+ty.getDouble(0.0));
             return a;
     }
+    
     public void setTargetHeight(double a){
         targetHeight = a;
     }

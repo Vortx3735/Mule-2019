@@ -1,0 +1,9 @@
+version: 0.2
+
+
+run-as: root
+
+phases:
+  build:
+    commands:
+      - build_frc_targets wpi build 

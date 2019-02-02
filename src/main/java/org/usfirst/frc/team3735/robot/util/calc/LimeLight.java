@@ -69,7 +69,7 @@ public class LimeLight {
     //works better if target is above LimeLight
     public double getHoriDis(){
         double a = (getTargetHeight()-getMountHeight()) / 
-            (Math.tan( getMountAngle() )+ty.getDouble(0.0));
+            (Math.tan( getMountAngle()+ ty.getDouble(0.0) ));
             return a;
     }
     

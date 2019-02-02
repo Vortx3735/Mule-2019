@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
 		drive = new Drive();
 		nav = new Navigation();
 		oi = new OI();
-		
+		limelight = new LimeLight();
 		autoLogic = new Autonomous();
 		//vision = new Jevois();
 	}

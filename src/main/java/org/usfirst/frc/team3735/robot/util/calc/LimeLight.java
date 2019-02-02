@@ -18,6 +18,11 @@ import edu.wpi.first.networktables.NetworkTableInstance;
  */
 public class LimeLight {
 
+    double horiDis;
+    double mountAngle;
+    double mountHeight;
+    double targetHeight;
+
     NetworkTable table;
     NetworkTableEntry tx; 
     NetworkTableEntry ty; 
@@ -47,14 +52,44 @@ public class LimeLight {
         pipeline = table.getEntry("pipeline");
         stream = table.getEntry("stream");
         snapshot = table.getEntry("snapshot");
-
+        mountAngle = 0;
+        mountHeight = 0;
+        targetHeight = 0;
         setCamMode(0);
         setLedMode(0);
         setPipeline(0);
         setStreamMode(0);
     }
 
-    // setters
+
+    //works better if target is above LimeLight
+    public double getHoriDis(){
+        double a = (getTargetHeight()-getMountHeight()) / 
+            (Math.tan( getMountAngle() )+ty.getDouble(0.0));
+            return a;
+    }
+    public void setTargetHeight(double a){
+        targetHeight = a;
+    }
+    public double getTargetHeight(){
+        return targetHeight;
+    }
+    public void setMountAngle(double a){
+        mountAngle = Math.toRadians(a);
+    }
+    
+    public double getMountAngle(){
+        return mountAngle;
+    }
+
+    public void setMountHeight(double a){
+        mountHeight = a;
+    }
+    public double getMountHeight(){
+        return mountHeight;
+    }
+
+        // setters
     /**
      * @return the tx
      */

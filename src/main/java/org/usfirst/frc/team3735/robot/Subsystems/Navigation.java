@@ -101,8 +101,8 @@ public class Navigation extends Subsystem {
     }
     public void log(){
     	SmartDashboard.putNumber("Robot Yaw", getYaw());
-    	SmartDashboard.putNumber("Nav Loc X", pos.x);
-    	SmartDashboard.putNumber("Nav Loc Y", pos.y);
+    	SmartDashboard.putNumber("Nav Loc X inches", pos.x);
+    	SmartDashboard.putNumber("Nav Loc Y inches", pos.y);
     	SmartDashboard.putNumber("Nav Acc", this.getXYAcceleration());
 //    	SmartDashboard.putNumber("Gyro Acceleration X", ahrs.getWorldLinearAccelX());
 //    	SmartDashboard.putNumber("Gyro Acceleration Y", ahrs.getWorldLinearAccelY());

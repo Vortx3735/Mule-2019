@@ -16,11 +16,11 @@ import jaci.pathfinder.modifiers.TankModifier;
 
 public class PathFollower extends VortxCommand {
 
-    //public EncoderFollower lFollower;
-    //public EncoderFollower rFollower;
+    public EncoderFollower lFollower;
+    public EncoderFollower rFollower;
 
-    public DistanceFollower lFollower;
-    public DistanceFollower rFollower;
+    // public DistanceFollower lFollower;
+    // public DistanceFollower rFollower;
 
     public Trajectory leftTraj;
     public Trajectory rightTraj;
@@ -51,21 +51,21 @@ public class PathFollower extends VortxCommand {
         leftTraj = modifier.getLeftTrajectory();
         rightTraj = modifier.getRightTrajectory();
 
-        lFollower = new DistanceFollower(leftTraj);
-        rFollower = new DistanceFollower(rightTraj);
+        lFollower = new EncoderFollower(leftTraj);
+        rFollower = new EncoderFollower(rightTraj);
 
+        
+        lFollower.configureEncoder((int)(Math.round(Robot.drive.getLeftPosition())), Constants.Drive.ticksPerRotation, Constants.Drive.wheelDiam);
+        rFollower.configureEncoder((int)(Math.round(Robot.drive.getRightPosition())), Constants.Drive.ticksPerRotation, Constants.Drive.wheelDiam);
 
-        //lFollower.configureEncoder((int)(Math.round(Robot.drive.getLeftPosition())), Constants.Drive.ticksPerRotation, Constants.Drive.wheelDiam);
-        //rFollower.configureEncoder((int)(Math.round(Robot.drive.getRightPosition())), Constants.Drive.ticksPerRotation, Constants.Drive.wheelDiam);
-
-        lFollower.configurePIDVA(.02, 0, 0, 1/Constants.Drive.maxVelocity, 1/Constants.Drive.maxAccel*.3);
-        rFollower.configurePIDVA(.02, 0, 0, 1/Constants.Drive.maxVelocity, 1/Constants.Drive.maxAccel*.3);
+        lFollower.configurePIDVA(.05, 0, 0, 1/Constants.Drive.maxVelocity, 1/Constants.Drive.maxAccel*.08);
+        rFollower.configurePIDVA(.05, 0, 0, 1/Constants.Drive.maxVelocity, 1/Constants.Drive.maxAccel*.08);
 
         long timeTake = System.currentTimeMillis()-startTime;
 
         System.out.println("Set trajectories in " + timeTake  + "millis");
         for(int i=0; i<leftTraj.length(); i++) {
-            System.out.println(i + "Left pos " + leftTraj.segments[i].x + " right pos: " + rightTraj.segments[i].x);
+            System.out.println(i + "Left pos " + leftTraj.segments[i].x + " right pos: " + rightTraj.segments[i].x + " angle wanted: " + leftTraj.segments[i].heading);
         }
 
         Robot.nav.resetPosition(new Position(new Location(0,0), 0));
@@ -76,8 +76,8 @@ public class PathFollower extends VortxCommand {
 
     @Override
     protected void execute () {
-            left = lFollower.calculate(Robot.drive.getLeftInches()); 
-            right = rFollower.calculate(Robot.drive.getRightInches()); 
+            left = lFollower.calculate((int)Robot.drive.getLeftPosition()); 
+            right = rFollower.calculate((int)Robot.drive.getRightPosition());
 
             angle = Robot.nav.getYaw();
             desiredAngle = Pathfinder.r2d(lFollower.getHeading());
@@ -88,7 +88,7 @@ public class PathFollower extends VortxCommand {
             System.out.println(" Left: " + Robot.drive.getLeftInches() + " Right: " + Robot.drive.getRightInches() + " Turn: " + turn);
 
 
-            Robot.drive.setLeftRight(-1*(left+turn), -1*(right-turn));
+            Robot.drive.setLeftRight(-1*(left-turn), -1*(right+turn));
     }
 
     

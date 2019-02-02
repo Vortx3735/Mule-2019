@@ -7,9 +7,9 @@ public class Constants {
 	public class Drive {
 
 		//TODO: testing on these values
-		public static final double maxVelocity = 200; //in/s
-		public static final double maxAccel = 200; //in/s^2
-		public static final double maxJerk = 1500; //in/s^3
+		public static final double maxVelocity = 120; //in/s 
+		public static final double maxAccel = 68;//in/s^2
+		public static final double maxJerk = 500; //in/s^3
 		public static final double wheelBase = 29; //in
 		public static final double wheelDiam = 4; //in
 		public static final int ticksPerRotation = 4096; //4096 for mag encoder

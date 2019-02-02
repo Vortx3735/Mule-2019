@@ -47,10 +47,48 @@ public class LimeLight {
         pipeline = table.getEntry("pipeline");
         stream = table.getEntry("stream");
         snapshot = table.getEntry("snapshot");
+
+        setCamMode(0);
+        setLedMode(0);
+        setPipeline(0);
+        setStreamMode(0);
     }
 
     // setters
-    
+    /**
+     * @return the tx
+     */
+    public double getTx() {
+       return tx.getDouble(0.0);
+    }
+
+    /**
+     * @return the ty
+     */
+    public double getTy() {
+        return ty.getDouble(0.0);
+    }
+
+    /**
+     * @return the ta
+     */
+    public double getTa() {
+        return ta.getDouble(0.0);
+    }
+
+    /**
+     * @return the ts
+     */
+    public double getTs() {
+        return ts.getDouble(0.0);
+    }
+
+    /**
+     * @return the tl
+     */
+    public double getTl() {
+        return tl.getDouble(0.0);
+    }
 
     public void setLedMode(double ledType) {
         ledMode.setNumber(ledType);
@@ -73,7 +111,7 @@ public class LimeLight {
     }
 
     public void log() {
-       System.out.println("tx: " + tx + " ty: " + ty + " ta: " + ta + " ts: " + ts + " tl: " + tl ); 
+       System.out.println("tx: " + getTx() + " ty: " + getTy() + " ta: " + getTa() + " ts: " + getTs() + " tl: " + getTl() ); 
     }
 
 }

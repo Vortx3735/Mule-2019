@@ -50,11 +50,11 @@ public class Navigation extends Subsystem implements PIDSource, PIDOutput {
     	prevLeft = curLeft;
 		prevRight = curRight;
 		
-		controller = new PIDController(0, 0, 0, this, this);
+		controller = new PIDController(.015, 0, .01, this, this);
 		controller.setOutputRange(-.7, .7);
-    	controller.setInputRange(-180, 180);
+    	controller.setInputRange(-13, 13);
     	controller.setContinuous();
-    	controller.setAbsoluteTolerance(2);
+    	controller.setAbsoluteTolerance(1);
 	}
 
 	public synchronized void setPosition(Position p){
@@ -92,7 +92,9 @@ public class Navigation extends Subsystem implements PIDSource, PIDOutput {
     }
     
     public double getYaw(){
-    	return ahrs.getYaw();
+		//ystem.out.println("got yaw");
+
+		return ahrs.getYaw();
     }
     
     public void setYaw(double offset) {
@@ -117,7 +119,8 @@ public class Navigation extends Subsystem implements PIDSource, PIDOutput {
     	SmartDashboard.putNumber("Robot Yaw", getYaw());
     	SmartDashboard.putNumber("Nav Loc X inches", pos.x);
     	SmartDashboard.putNumber("Nav Loc Y inches", pos.y);
-    	SmartDashboard.putNumber("Nav Acc", this.getXYAcceleration());
+		SmartDashboard.putNumber("Nav Acc", this.getXYAcceleration());
+		SmartDashboard.putNumber("PID Setpoint", controller.getSetpoint());
 //    	SmartDashboard.putNumber("Gyro Acceleration X", ahrs.getWorldLinearAccelX());
 //    	SmartDashboard.putNumber("Gyro Acceleration Y", ahrs.getWorldLinearAccelY());
 //    	SmartDashboard.putNumber("Gyro Accel XY Vector", getXYAcceleration());
@@ -212,7 +215,14 @@ public class Navigation extends Subsystem implements PIDSource, PIDOutput {
 
 	@Override
 	public void pidWrite(double output) {
-		Robot.drive.setLeftRight(output, -output);
+		SmartDashboard.putNumber("PID Output", output);
+		if(output>=.025) {
+			output+=.20;
+		} else if (output<=-.025) {
+			output-=.12;
+		}
+		Robot.drive.setLeftRight(-output, output);
+
 	}
 
 	public PIDController getController() {

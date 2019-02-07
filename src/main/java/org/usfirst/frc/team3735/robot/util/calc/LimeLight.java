@@ -30,6 +30,7 @@ public class LimeLight extends Subsystem {
     NetworkTableEntry ta; 
     NetworkTableEntry ts; 
     NetworkTableEntry tl; 
+    NetworkTableEntry tv;
     NetworkTableEntry getpipe;
     
     //setter dec
@@ -39,14 +40,19 @@ public class LimeLight extends Subsystem {
     NetworkTableEntry stream;
     NetworkTableEntry snapshot;
 
+    double txValue;
+    double taValue;
+    double distance;
+
 
     public LimeLight() {
-        table = NetworkTableInstance.getDefault().getTable("limelight");  
+        table = NetworkTableInstance.getDefault().getTable("");  
         tx = table.getEntry("tx"); 
         ty = table.getEntry("ty");
         ta = table.getEntry("ta");
         ts = table.getEntry("ts");
         tl = table.getEntry("tl");
+        tv = table.getEntry("tv");
         getpipe = table.getEntry("getpipe");
         ledMode = table.getEntry("ledMode");
         camMode = table.getEntry("camMode");
@@ -100,7 +106,10 @@ public class LimeLight extends Subsystem {
      * @return the tx
      */
     public double getTx() {
-       return tx.getDouble(0.0);
+        if(tv.getDouble(0.0)==1) {
+            txValue = tx.getDouble(txValue);
+        }
+       return txValue;
     }
 
     /**
@@ -110,11 +119,18 @@ public class LimeLight extends Subsystem {
         return ty.getDouble(0.0);
     }
 
+    public double getTv() {
+        return tv.getDouble(0.0);
+    }
+
     /**
      * @return the ta
      */
     public double getTa() {
-        return ta.getDouble(0.0);
+        if(tv.getDouble(0.0)==1) {
+            taValue = ta.getDouble(taValue);
+        }
+       return taValue;
     }
 
     /**
@@ -129,6 +145,10 @@ public class LimeLight extends Subsystem {
      */
     public double getTl() {
         return tl.getDouble(0.0);
+    }
+
+    public double getDistance() {
+        return 75.315 * Math.pow(getTa(), -.484);
     }
 
     public void setLedMode(double ledType) {
@@ -157,7 +177,11 @@ public class LimeLight extends Subsystem {
     }
 
     public void log() {
-       System.out.println("tx: " + getTx() + " ty: " + getTy() + " ta: " + getTa() + " ts: " + getTs() + " tl: " + getTl() ); 
+        SmartDashboard.putNumber("tx", getTx());
+        SmartDashboard.putNumber("ty", getTy());
+        SmartDashboard.putNumber("ta", getTa());
+        SmartDashboard.putNumber("tv" , getTv());
+        SmartDashboard.putNumber("Distance", getDistance());
     }
 
    

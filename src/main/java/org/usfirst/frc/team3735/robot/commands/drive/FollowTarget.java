@@ -44,11 +44,10 @@ public class FollowTarget extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {   
 		count++;
-		if(count%5==0) {
-			System.out.println("Tx is " + Robot.limelight.getTx());
-			System.out.println("Current angle is " + Robot.navigation.getYaw());
-			System.out.println("Set point is " + Robot.navigation.getYaw()+Robot.limelight.getTx());
+		if(count%50==0) {
+			//Robot.navigation.getController().disable();
 			Robot.navigation.getController().setSetpoint(getAngle.getValue());	
+			//Robot.navigation.getController().enable();
 		} 
     	// if(Robot.navigation.getController().onTarget()){
     	// 	timeOnTarget += .02;

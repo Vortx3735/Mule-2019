@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team3735.robot.subsystems.ArduinoCo;
 import org.usfirst.frc.team3735.robot.subsystems.Drive;
 import org.usfirst.frc.team3735.robot.subsystems.Jevois;
 import org.usfirst.frc.team3735.robot.subsystems.Navigation;
@@ -33,7 +34,7 @@ public class Robot extends TimedRobot {
 	public static Jevois vision;
 	public static Navigation navigation;
 	public static LimeLight limelight;
-	
+	public static ArduinoCo arduino;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -46,6 +47,7 @@ public class Robot extends TimedRobot {
 		oi = new OI();
 		limelight = new LimeLight();
 		autoLogic = new Autonomous();
+		arduino = new ArduinoCo();
 		//vision = new Jevois();
 	}
 
@@ -109,6 +111,11 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		
+		arduino.update();
+		System.out.println("RevSensor: " + arduino.getDistance()/25.4 );
+		System.out.println("Limelight: " + limelight.getDistance());
+
 		Scheduler.getInstance().run();
 		log();
 		

@@ -54,7 +54,9 @@ public class Navigation extends Subsystem implements PIDSource, PIDOutput {
 		controller.setOutputRange(-.7, .7);
     	controller.setInputRange(-13, 13);
     	controller.setContinuous();
-    	controller.setAbsoluteTolerance(1);
+		controller.setAbsoluteTolerance(1);
+		
+		SmartDashboard.putData("Nav Tuning Controller", controller);
 	}
 
 	public synchronized void setPosition(Position p){

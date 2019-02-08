@@ -1,7 +1,8 @@
 package org.usfirst.frc.team3735.robot;
 
-// import org.usfirst.frc.team3735.robot.commands.auto.DistanceStraight;
-import org.usfirst.frc.team3735.robot.commands.drive.FollowTarget;
+import org.usfirst.frc.team3735.robot.commands.auto.DistanceStraight;
+import org.usfirst.frc.team3735.robot.commands.auto.FollowTarget;
+
 
 import edu.wpi.first.wpilibj.command.Command;
 

@@ -17,7 +17,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team3735.robot.subsystems.Hatch;
 import org.usfirst.frc.team3735.robot.subsystems.Drive;
 import org.usfirst.frc.team3735.robot.subsystems.Intake;
-import org.usfirst.frc.team3735.robot.subsystems.Jevois;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -29,10 +28,8 @@ import org.usfirst.frc.team3735.robot.subsystems.Jevois;
 public class Robot extends TimedRobot {
 	public static Drive drive;
 	public static OI oi;
-	public static Autonomous autoLogic;
 	public static Intake intake;
 	Command m_autonomousCommand;
-	public static Jevois vision;
 	public static Hatch hatch;
 	
 
@@ -45,14 +42,8 @@ public class Robot extends TimedRobot {
 		drive = new Drive();
 		intake = new Intake();
 		hatch = new Hatch();
+		
 		oi = new OI();
-		
-
-		//vision = new Jevois();
-		//autoLogic = new Autonomous();
-		
-
-
 		
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -124,5 +115,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+		
 	}
 }

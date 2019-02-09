@@ -58,8 +58,8 @@ public class PathFollower extends VortxCommand {
         lFollower.configureEncoder((int)(Math.round(Robot.drive.getLeftPosition())), Constants.Drive.ticksPerRotation, Constants.Drive.wheelDiam);
         rFollower.configureEncoder((int)(Math.round(Robot.drive.getRightPosition())), Constants.Drive.ticksPerRotation, Constants.Drive.wheelDiam);
 
-        lFollower.configurePIDVA(.06, 0, 0, 1/Constants.Drive.maxVelocity, 1/Constants.Drive.maxAccel*.08);
-        rFollower.configurePIDVA(.06, 0, 0, 1/Constants.Drive.maxVelocity, 1/Constants.Drive.maxAccel*.08);
+        lFollower.configurePIDVA(.0005, 0, 0, 1/Constants.Drive.maxVelocity, 1/Constants.Drive.maxAccel*.01);//1/Constants.Drive.maxAccel*.08);
+        rFollower.configurePIDVA(.0005, 0, 0, 1/Constants.Drive.maxVelocity, 1/Constants.Drive.maxAccel*.01);//1/Constants.Drive.maxAccel*.08);
 
         long timeTake = System.currentTimeMillis()-startTime;
 
@@ -83,12 +83,12 @@ public class PathFollower extends VortxCommand {
             desiredAngle = Pathfinder.r2d(lFollower.getHeading());
             angleDifference = Pathfinder.boundHalfDegrees(desiredAngle - angle);
 
-            turn = 0.8 * (-1.0/80) * angleDifference;
+            turn = .9 * (1.0/80) * angleDifference;
 
             System.out.println(" Left: " + Robot.drive.getLeftInches() + " Right: " + Robot.drive.getRightInches() + " Turn: " + turn);
 
 
-            Robot.drive.setLeftRight(-1*(left-turn), -1*(right+turn));
+            Robot.drive.setLeftRight((left-turn), (right+turn));
     }
 
     

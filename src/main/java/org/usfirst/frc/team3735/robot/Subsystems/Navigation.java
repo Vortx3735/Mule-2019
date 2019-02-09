@@ -16,6 +16,7 @@ import org.usfirst.frc.team3735.robot.Robot;
 import org.usfirst.frc.team3735.robot.util.calc.*;
 import org.usfirst.frc.team3735.robot.util.hardware.VortxAhrs;
 import org.usfirst.frc.team3735.robot.util.profiling.*;
+import org.usfirst.frc.team3735.robot.util.settings.Setting;
 
 //import Robot.Side;
 
@@ -36,6 +37,12 @@ public class Navigation extends Subsystem implements PIDSource, PIDOutput {
 	private double curRight;
 
 	PIDController controller;
+
+	public static Setting navCo = new Setting("Nav Assist Coeffecient", 7, false);
+	public static Setting navVisCo = new Setting("Nav Vision Assist Coeffecient", 5, false);
+
+
+
 	
 	public Navigation(){
 		table = NetworkTableInstance.getDefault().getTable("MAP");

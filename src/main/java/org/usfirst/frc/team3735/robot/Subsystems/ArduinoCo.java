@@ -20,6 +20,7 @@ public class ArduinoCo extends Subsystem {
   double distance;
   Thread nThread;
   public static SerialPort sp;
+  //TODO: Make a tv for the arudino
 
   public ArduinoCo() {
     sp = new SerialPort(9600, Port.kUSB);

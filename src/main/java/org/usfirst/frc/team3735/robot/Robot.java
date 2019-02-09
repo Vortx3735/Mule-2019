@@ -31,7 +31,6 @@ public class Robot extends TimedRobot {
 	public static Drive drive;
 	public static OI oi;
 	public static Autonomous autoLogic;
-	public static Jevois vision;
 	public static Navigation navigation;
 	public static LimeLight limelight;
 	public static ArduinoCo arduino;
@@ -46,8 +45,11 @@ public class Robot extends TimedRobot {
 		navigation = new Navigation();
 		
 		limelight = new LimeLight();
-		autoLogic = new Autonomous();
 		arduino = new ArduinoCo();
+
+		
+		autoLogic = new Autonomous();
+		
 		//vision = new Jevois();
 
 		oi = new OI();

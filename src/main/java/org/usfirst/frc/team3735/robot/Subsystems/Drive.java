@@ -8,6 +8,7 @@ import org.usfirst.frc.team3735.robot.Constants;
 import org.usfirst.frc.team3735.robot.Robot;
 import org.usfirst.frc.team3735.robot.commands.drive.DDxDrive;
 import org.usfirst.frc.team3735.robot.RobotMap;
+import org.usfirst.frc.team3735.robot.util.hardware.VortxTalon;
 import org.usfirst.frc.team3735.robot.util.settings.BooleanSetting;
 import org.usfirst.frc.team3735.robot.util.settings.Setting;
 import org.usfirst.frc.team3735.robot.Constants.*;
@@ -27,11 +28,14 @@ public class Drive extends Subsystem {
 	public static Setting scaledMaxMove = new Setting("Scaled Max Move", .8); //changes speed of motor (IMPORTANT)
 	public static Setting scaledMaxTurn = new Setting("Scaled Max Turn", .5); // changes speed of turn motor (IMPORTANT)
 	
-	private WPI_TalonSRX l1;
-	private WPI_TalonSRX l2;
+	private VortxTalon l1;
 	
-	private WPI_TalonSRX r1;
-	private WPI_TalonSRX r2;
+	private VortxTalon r1;
+
+	private double leftAddTurn = 0;
+	private double rightAddTurn = 0;
+	private double visionAssist = 0;
+	private double navxAssist = 0;
 	
 	public static BooleanSetting brakeEnabled = new BooleanSetting("Brake Mode On", false) {
 
@@ -48,16 +52,10 @@ public class Drive extends Subsystem {
 	
 
 	public Drive() {
-		l1 = new WPI_TalonSRX(RobotMap.Drive.leftMotor1);
-		l2 = new WPI_TalonSRX(RobotMap.Drive.leftMotor2);
+		l1 = new VortxTalon(RobotMap.Drive.leftMotors, "Left Drive Motors");
 
-		r1 = new WPI_TalonSRX(RobotMap.Drive.rightMotor1);
-		r2 = new WPI_TalonSRX(RobotMap.Drive.rightMotor2);
+		r1 = new VortxTalon(RobotMap.Drive.rightMotors, "Right Drive Motors");
 		
-		l1.setInverted(true);
-		l2.setInverted(true);
-		
-		setupSlaves();
 		initSensors();
 		setEnableBrake(true);
 	}
@@ -69,15 +67,13 @@ public class Drive extends Subsystem {
 		setDefaultCommand(new DDxDrive());
 	}
 
+	public void setupDriveForSpeedControl() {
+		//setEnableBrake(false);
 
-
-	/*******************************
-	 * Slaves Setup
-	 *******************************/
-	public void setupSlaves() {
-		l2.follow(l1);
-		r2.follow(r1);
+		this.setNavxAssist(0);
+		this.setVisionAssist(0);
 	}
+
 
 	public void initSensors() {
 		
@@ -111,6 +107,22 @@ public class Drive extends Subsystem {
 		return (r1.getMotorOutputPercent() + l1.getMotorOutputPercent())/2;	
 	}
 	
+	/*******************************
+	 * Additive setters
+	 *******************************/
+	public void setLeftTurn(double turn){
+    	leftAddTurn = turn;
+    }
+    public void setRightTurn(double turn){
+    	rightAddTurn = turn;
+    }
+	public void setVisionAssist(double error) {
+		visionAssist = (error * Navigation.navVisCo.getValue());
+	}	
+	public void setNavxAssist(double error) {
+		this.navxAssist = (error/180.0) * Navigation.navCo.getValue();
+	}
+
 	/*******************************
 	 * Drive Functions
 	 *******************************/
@@ -162,14 +174,10 @@ public class Drive extends Subsystem {
 	public void setEnableBrake(boolean b) {
 		if(b) {
 			l1.setNeutralMode(NeutralMode.Brake);
-			l2.setNeutralMode(NeutralMode.Brake);
 			r1.setNeutralMode(NeutralMode.Brake);
-			r2.setNeutralMode(NeutralMode.Brake);
 		}else {
 			l1.setNeutralMode(NeutralMode.Coast);
-			l2.setNeutralMode(NeutralMode.Coast);
 			r1.setNeutralMode(NeutralMode.Coast);
-			r2.setNeutralMode(NeutralMode.Coast);
 		}
 		brakeEnabled.setValue(b);
 	}

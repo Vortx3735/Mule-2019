@@ -1,0 +1,81 @@
+package org.usfirst.frc.team3735.robot.commands.auto;
+
+import org.usfirst.frc.team3735.robot.Robot;
+import org.usfirst.frc.team3735.robot.commands.drive.profiling.PathFollower;
+import org.usfirst.frc.team3735.robot.util.calc.LimeLight;
+import org.usfirst.frc.team3735.robot.util.calc.VortxMath;
+import org.usfirst.frc.team3735.robot.util.profiling.Position;
+import org.usfirst.frc.team3735.robot.util.settings.Func;
+
+import edu.wpi.first.wpilibj.command.Command;
+import jaci.pathfinder.Waypoint;
+
+/**
+ *
+ */
+public class DriveToTargetJaci extends Command {
+	
+	// private double finishTime = .3;
+    // private double timeOnTarget = 0;
+    
+    Waypoint target;
+    Waypoint current;
+    double distanceToTarget;
+    double angleToTarget;
+    Command pathFollower;
+
+	int count;
+	
+	public DriveToTargetJaci() {
+        requires(Robot.drive);
+		requires(Robot.navigation);
+        requires(Robot.limelight);
+    }
+
+	
+
+    // Called just before this Command runs the first time
+    protected void initialize() {
+        double x = Robot.navigation.getPosition().x;
+        double y = Robot.navigation.getPosition().y;
+        double theta = Robot.navigation.getPosition().yaw;
+        current = new Waypoint(x, y, theta);
+        target = getTarget();
+        pathFollower = new PathFollower(new Waypoint[] {current, target});
+    }
+
+    protected Waypoint getTarget() {
+        distanceToTarget = Robot.limelight.getDistance();
+        angleToTarget = VortxMath.navLimit(Robot.navigation.getYaw()+Robot.limelight.getTx());
+        double x = current.x + Math.cos(Math.toRadians(angleToTarget)) * distanceToTarget;
+        double y = current.y + Math.sin(Math.toRadians(angleToTarget)) * distanceToTarget;
+        
+        return new Waypoint(x, y, angleToTarget);
+    }
+
+    // Called repeatedly when this Command is scheduled to run
+    protected void execute() {   
+		count++;
+		if(count%50==0) {
+			//TODO: Change target
+		} 
+    }
+
+	// Make this return true when this Command no longer needs to run execute()
+    protected boolean isFinished() {
+		return pathFollower.isCompleted();
+		//return timeOnTarget >= finishTime;
+    }
+
+    // Called once after isFinished returns true
+    protected void end() {
+    	pathFollower.cancel();
+    }
+
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    protected void interrupted() {
+    	end();
+    }
+
+}

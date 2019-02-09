@@ -177,12 +177,7 @@ public class Drive extends Subsystem {
 	
 
 	public void setLeftRight(double left, double right) {
-		//System.out.println("Left: " + left + " Right:" + right);
-		//l1.set(left); 
 		l1.set(ControlMode.PercentOutput, left);
-		
-		
-		//r1.set(-1 * right);
 		r1.set(ControlMode.PercentOutput, right);
 	}
 	

@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team3735.robot;
 
+import org.usfirst.frc.team3735.robot.commands.auto.FollowTarget;
+import org.usfirst.frc.team3735.robot.commands.auto.MoveToTarget;
 import org.usfirst.frc.team3735.robot.util.oi.XboxController;
 
 /**
@@ -22,6 +24,8 @@ public class OI {
 		main = new XboxController(0);
 		co = new XboxController(1);
 		main.rb.get();
+		main.x.whileHeld(new FollowTarget());
+		main.y.whileHeld(new MoveToTarget());
 		// main.a.whileHeld(new IntakeMotorSet(0.5));
 		// main.b.whileHeld(new IntakeMotorSet(-0.5));
 		// main.x.whileHeld(new IntakeMotorSet(0.0));
@@ -36,7 +40,7 @@ public class OI {
 	}
 	//
 	public double getDriveMove() {
-		return -1*(main.getRightTrigger() - main.getLeftTrigger());
+		return (main.getRightTrigger() - main.getLeftTrigger());
 		//return main.getLeftY();
 	}
 

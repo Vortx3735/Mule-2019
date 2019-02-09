@@ -73,6 +73,8 @@ public class LimeLight extends Subsystem {
     public double getTx() {
         if(tv.getDouble(0.0)==1) {
             txValue = tx.getDouble(txValue);
+        } else {
+            txValue = 0.0;
         }
        return txValue;
     }

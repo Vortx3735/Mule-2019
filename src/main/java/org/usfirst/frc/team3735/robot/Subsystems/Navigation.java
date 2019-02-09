@@ -50,20 +50,17 @@ public class Navigation extends Subsystem implements PIDSource, PIDOutput {
     	prevLeft = curLeft;
 		prevRight = curRight;
 		
-		controller = new PIDController(.015, 0, .01, this, this);
+		controller = new PIDController(.05, .001, .02, this, this);
+		controller.setInputRange(-180, 180);
 		controller.setOutputRange(-.7, .7);
-    	controller.setInputRange(-13, 13);
     	controller.setContinuous();
 		controller.setAbsoluteTolerance(1);
-		
-		SmartDashboard.putData("Nav Tuning Controller", controller);
 	}
 
 	public synchronized void setPosition(Position p){
 		synchronized(posLock){
 			pos = p;
 		}
-		ahrs.setYaw(p.yaw);
 	}
 	
     // Put methods for controlling this subsystem
@@ -105,7 +102,8 @@ public class Navigation extends Subsystem implements PIDSource, PIDOutput {
 
     
     public void zeroYaw(){
-    	ahrs.zeroYaw();
+		ahrs.zeroYaw();
+		System.out.println("Yaw Zerod");
     }
     public void resetAhrs(){
     	ahrs.reset();
@@ -217,14 +215,14 @@ public class Navigation extends Subsystem implements PIDSource, PIDOutput {
 
 	@Override
 	public void pidWrite(double output) {
-		SmartDashboard.putNumber("PID Output", output);
-		if(output>=.025) {
-			output+=.20;
-		} else if (output<=-.025) {
-			output-=.12;
-		}
+		// if(output>=.01) {
+		// 	output+=.18;
+		// } else if (output<=-.01) {
+		// 	output-=.18;
+		// }
+		output = VortxMath.limit(output, -0.3, .3);
 		Robot.drive.setLeftRight(-output, output);
-
+		SmartDashboard.putNumber("PID Output", output);
 	}
 
 	public PIDController getController() {

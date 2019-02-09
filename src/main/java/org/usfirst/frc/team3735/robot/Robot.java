@@ -44,11 +44,15 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		drive = new Drive();
 		navigation = new Navigation();
-		oi = new OI();
+		
 		limelight = new LimeLight();
 		autoLogic = new Autonomous();
 		arduino = new ArduinoCo();
 		//vision = new Jevois();
+
+		oi = new OI();
+		navigation.zeroYaw();
+
 	}
 
 	/**
@@ -66,6 +70,7 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		log();
 		navigation.integrate();
+		arduino.update();
 	}
 
 	/**
@@ -93,6 +98,7 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		log();
 		navigation.integrate();
+		arduino.update();
 	}
 
 	@Override
@@ -113,13 +119,12 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		
 		arduino.update();
-		System.out.println("RevSensor: " + arduino.getDistance()/25.4 );
-		System.out.println("Limelight: " + limelight.getDistance());
 
 		Scheduler.getInstance().run();
 		log();
 		
 		navigation.integrate();
+		arduino.update();
 	}
 
 	/**
@@ -133,5 +138,6 @@ public class Robot extends TimedRobot {
 		drive.log();
 		navigation.log();
 		limelight.log();
+		arduino.log();
 	}
 }

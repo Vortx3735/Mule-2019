@@ -10,13 +10,14 @@ package org.usfirst.frc.team3735.robot.subsystems;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Add your docs here.
  */
 public class ArduinoCo extends Subsystem {
 
-  int distance;
+  double distance;
   Thread nThread;
   public static SerialPort sp;
 
@@ -24,18 +25,19 @@ public class ArduinoCo extends Subsystem {
     sp = new SerialPort(9600, Port.kUSB);
   }
 
-  public int getDistance() {
+  public double getDistance() {
     return distance;
   }
 
   public void update() {
     // System.out.println("Update was called");
+
     try {
       if (sp.getBytesReceived() > 0) {
         String[] input = sp.readString().trim().split("\n");
 
         if (!input[0].equals("")) {
-          distance = Integer.parseInt(input[input.length - 1]);
+          distance = Integer.parseInt(input[input.length - 1])/25.4;
         }
       }
     } catch (NumberFormatException e) {
@@ -43,6 +45,10 @@ public class ArduinoCo extends Subsystem {
 
   }
 
+
+  public void log() {
+    SmartDashboard.putNumber("Arduino Distance", distance);
+  }
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());

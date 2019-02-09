@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class FollowTarget extends Command {
+public class MoveToTarget extends Command {
 	
 	// private double finishTime = .3;
 	// private double timeOnTarget = 0;
@@ -17,7 +17,7 @@ public class FollowTarget extends Command {
 	Func getAngle;
 	int count;
 	
-	public FollowTarget() {
+	public MoveToTarget() {
     	this(new Func(){
 			@Override
 			public double getValue() {
@@ -26,7 +26,7 @@ public class FollowTarget extends Command {
     	});
     }
 
-	public FollowTarget(Func fun) {
+	public MoveToTarget(Func fun) {
     	requires(Robot.drive);
 		requires(Robot.navigation);
 		requires(Robot.limelight);

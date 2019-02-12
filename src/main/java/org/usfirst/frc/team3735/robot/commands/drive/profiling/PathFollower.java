@@ -9,7 +9,6 @@ import org.usfirst.frc.team3735.robot.util.profiling.Position;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
-import jaci.pathfinder.followers.DistanceFollower;
 import jaci.pathfinder.followers.EncoderFollower;
 import jaci.pathfinder.modifiers.TankModifier;
 

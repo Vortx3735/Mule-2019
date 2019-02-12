@@ -40,4 +40,11 @@ public class Constants {
 		public static final double driveTolerance = 2;
 
 	}
+
+	public class LimeLight {
+		public static final double STEER_K = -0.02;                    // how hard to turn toward the target
+        public static final double DRIVE_K = 0.02;                    // how hard to drive fwd toward the target
+        public static final double DESIRED_TARGET_DISTANCE = 12.0;        // Area of the target when the robot reaches the wall
+        public static final double MAX_DRIVE = 0.7;                   // Simple speed limit so we don't drive too fast
+	}
 }

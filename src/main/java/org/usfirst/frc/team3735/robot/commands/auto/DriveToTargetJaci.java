@@ -2,7 +2,6 @@ package org.usfirst.frc.team3735.robot.commands.auto;
 
 import org.usfirst.frc.team3735.robot.Robot;
 import org.usfirst.frc.team3735.robot.commands.drive.profiling.PathFollower;
-import org.usfirst.frc.team3735.robot.util.calc.LimeLight;
 import org.usfirst.frc.team3735.robot.util.calc.VortxMath;
 import org.usfirst.frc.team3735.robot.util.profiling.Position;
 import org.usfirst.frc.team3735.robot.util.settings.Func;

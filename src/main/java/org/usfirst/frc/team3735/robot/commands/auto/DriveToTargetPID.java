@@ -97,7 +97,7 @@ public class DriveToTargetPID extends Command {
             }      
         });
 
-        moveController = new PIDController(.007, 0, 0, 
+        moveController = new PIDController(.01, 0, 0, 
         new PIDSource() {
 
             PIDSourceType m_sourceType = PIDSourceType.kDisplacement;

@@ -31,9 +31,22 @@ public class PathFollower extends VortxCommand {
     public double angleDifference;
     public double turn;
 
+    public double originalAngleOffset;
+
+    Waypoint[] waypoints;
+
     //@param: array of waypoint that have (x,y,0)
     public PathFollower(Waypoint[] waypoints) {
-        System.out.println("Pathfollwer called");
+        
+        this.waypoints = waypoints;
+
+        requires(Robot.drive);            
+        
+    }
+
+    @Override
+    protected void initialize() {
+
         long startTime = System.currentTimeMillis();
 
         //FitMethod fit, int samples, double dt, double max_velocity, double max_acceleration, double max_jerk
@@ -63,28 +76,30 @@ public class PathFollower extends VortxCommand {
         long timeTake = System.currentTimeMillis()-startTime;
 
         System.out.println("Set trajectories in " + timeTake  + "millis");
-        for(int i=0; i<leftTraj.length(); i++) {
-            System.out.println(i + "Left pos " + leftTraj.segments[i].x + " right pos: " + rightTraj.segments[i].x + " angle wanted: " + leftTraj.segments[i].heading);
-        }
 
-        Robot.navigation.resetPosition(new Position(new Location(0,0), 0));
+        originalAngleOffset = Robot.navigation.getYaw();
 
-        requires(Robot.drive);            
-        
+        System.out.println("The original angle off set is " + originalAngleOffset);
     }
 
     @Override
     protected void execute () {
             left = lFollower.calculate((int)Robot.drive.getLeftPosition()); 
             right = rFollower.calculate((int)Robot.drive.getRightPosition());
+            
+
 
             angle = Robot.navigation.getYaw();
-            desiredAngle = Pathfinder.r2d(lFollower.getHeading());
+            desiredAngle = Pathfinder.boundHalfDegrees(Pathfinder.r2d(lFollower.getHeading()) + originalAngleOffset);
             angleDifference = Pathfinder.boundHalfDegrees(desiredAngle - angle);
 
-            turn = 1.7 * (1.0/80) * angleDifference;
+            System.out.println("Navx: " + angle + " Offset: " + originalAngleOffset + " desired: " + desiredAngle + " Difference: " + angleDifference);
+            
 
-            System.out.println(" Left: " + Robot.drive.getLeftInches() + " Right: " + Robot.drive.getRightInches() + " Turn: " + turn);
+
+            turn = -1.7 * (1.0/80) * angleDifference;
+
+            System.out.println("Left Power: " + left +  " Right Power: " + right  + " Turn power: " + turn);
 
 
             Robot.drive.setLeftRight((left+turn), (right-turn));

@@ -12,7 +12,7 @@ public class Autonomous {
 	private Command firstCommand;
 
 	public Autonomous() {
-		firstCommand = new DistanceStraight(100, 0);
+		firstCommand = new DistanceStraight(100, 20);
 		//firstCommand = new FollowTarget();
 		System.out.println("new autonomous created");
 	}

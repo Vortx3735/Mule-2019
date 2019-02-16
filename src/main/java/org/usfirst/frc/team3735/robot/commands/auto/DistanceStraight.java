@@ -1,6 +1,8 @@
 package org.usfirst.frc.team3735.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+
+import org.usfirst.frc.team3735.robot.Robot;
 import org.usfirst.frc.team3735.robot.commands.drive.profiling.*;
 import jaci.pathfinder.Waypoint;
 

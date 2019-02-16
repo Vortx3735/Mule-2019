@@ -12,6 +12,8 @@ import org.usfirst.frc.team3735.robot.commands.auto.DriveToTargetPID;
 import org.usfirst.frc.team3735.robot.commands.auto.FollowTarget;
 import org.usfirst.frc.team3735.robot.commands.auto.MoveToTarget;
 import org.usfirst.frc.team3735.robot.util.oi.XboxController;
+import org.usfirst.frc.team3735.robot.commands.limelight.FlipPipeline;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -29,7 +31,9 @@ public class OI {
 		main.x.whileHeld(new FollowTarget());
 		main.y.whileHeld(new MoveToTarget());
 		main.b.whileHeld(new DriveToTargetPID());
-		main.a.whileHeld(new DriveToTargetP());	
+		main.a.whileHeld(new DriveToTargetP());
+
+		main.lb.whenPressed(new FlipPipeline());
 	}
 	//
 	public double getDriveMove() {
@@ -48,7 +52,7 @@ public class OI {
 	}
 	
 	public double getFODAngle(){
-		//return main.getRightAngle();
+		//return main.getRightAngle()
 		return 0;
 	}
 	

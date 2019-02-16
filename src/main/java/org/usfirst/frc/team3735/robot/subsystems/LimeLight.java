@@ -10,6 +10,9 @@ package org.usfirst.frc.team3735.robot.subsystems;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team3735.robot.commands.limelight.FlipPipeline;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 
@@ -26,6 +29,7 @@ public class LimeLight extends Subsystem {
     NetworkTableEntry tl; 
     NetworkTableEntry tv;
     NetworkTableEntry getpipe;
+    NetworkTableEntry camtran;
     
     //setter dec
     NetworkTableEntry ledMode;
@@ -37,6 +41,11 @@ public class LimeLight extends Subsystem {
     double txValue;
     double taValue;
     double distance;
+    String camtranValue;
+
+    boolean threeD;
+
+    double x,y,z,yaw;
 
 
     public LimeLight() {
@@ -53,6 +62,7 @@ public class LimeLight extends Subsystem {
         pipeline = table.getEntry("pipeline");
         stream = table.getEntry("stream");
         snapshot = table.getEntry("snapshot");
+        camtran = table.getEntry("camtran");
 
         //change these values when testing.
         // mountAngle = 0;
@@ -62,8 +72,9 @@ public class LimeLight extends Subsystem {
 
         setCamMode(0);
         setLedMode(0);
-        setPipeline(1);
         setStreamMode(0);
+
+
     }
         // setters
     /**
@@ -142,12 +153,34 @@ public class LimeLight extends Subsystem {
 
     }
 
+    public void set3D(boolean b) {
+        this.threeD = b;
+        if(true) {
+            setPipeline(0.0);
+        } else {
+            setPipeline(1.0);
+        }
+    }
+
+    public boolean get3d () {
+        return threeD;
+    }
+
     public void log() {
         SmartDashboard.putNumber("tx", getTx());
         SmartDashboard.putNumber("ty", getTy());
         SmartDashboard.putNumber("ta", getTa());
         SmartDashboard.putNumber("tv" , getTv());
         SmartDashboard.putNumber("Distance", getDistance());
+        Double[] array = camtran.getDoubleArray(new Double[] {0.0,0.0,0.0,0.0,0.0,0.0});
+        x = array[0];
+        y = array[1];
+        z = array[2];
+        yaw = array[3];
+        SmartDashboard.putNumber("x", x);
+        SmartDashboard.putNumber("y", y);
+        SmartDashboard.putNumber("z", z);
+        SmartDashboard.putNumber("yawToTarger", yaw);
     }
 
    

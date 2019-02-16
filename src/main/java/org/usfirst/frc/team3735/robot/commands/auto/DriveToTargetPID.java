@@ -28,6 +28,8 @@ public class DriveToTargetPID extends Command {
 
     double turn;
     double move;
+
+    double squaredSum;
 	
 	public DriveToTargetPID() {
     	this(new Func(){
@@ -148,10 +150,14 @@ public class DriveToTargetPID extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {   
+
+        squaredSum += getAngleError.getValue() * getAngleError.getValue();
+        
 		count++;
-		if(count%10==0) {
-			//System.out.println("New angle setpoint is " + getAngleError.getValue());
-			turningController.setSetpoint(getAngleError.getValue());	
+		if(count%5==0) {
+            //System.out.println("New angle setpoint is " + getAngleError.getValue());
+            turningController.setSetpoint(Math.sqrt(squaredSum/count));	
+            count = 0;
         } 
         //System.out.println("Distance error is " + moveController.getError());
         if(Math.abs(moveController.getError())<24) {

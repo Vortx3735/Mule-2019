@@ -82,12 +82,12 @@ public class PathFollower extends VortxCommand {
             desiredAngle = Pathfinder.r2d(lFollower.getHeading());
             angleDifference = Pathfinder.boundHalfDegrees(desiredAngle - angle);
 
-            turn = .9 * (1.0/80) * angleDifference;
+            turn = 1.7 * (1.0/80) * angleDifference;
 
             System.out.println(" Left: " + Robot.drive.getLeftInches() + " Right: " + Robot.drive.getRightInches() + " Turn: " + turn);
 
 
-            Robot.drive.setLeftRight((left-turn), (right+turn));
+            Robot.drive.setLeftRight((left+turn), (right-turn));
     }
 
     

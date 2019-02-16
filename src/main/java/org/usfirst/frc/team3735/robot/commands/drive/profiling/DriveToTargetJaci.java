@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3735.robot.commands.auto;
+package org.usfirst.frc.team3735.robot.commands.drive.profiling;
 
 import org.usfirst.frc.team3735.robot.Robot;
 import org.usfirst.frc.team3735.robot.commands.drive.profiling.PathFollower;

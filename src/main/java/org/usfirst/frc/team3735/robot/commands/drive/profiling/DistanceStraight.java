@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3735.robot.commands.auto;
+package org.usfirst.frc.team3735.robot.commands.drive.profiling;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 

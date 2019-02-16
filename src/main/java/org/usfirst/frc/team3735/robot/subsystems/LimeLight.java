@@ -74,6 +74,7 @@ public class LimeLight extends Subsystem {
         setLedMode(0);
         setStreamMode(0);
 
+        setPipeline(1.0);
 
     }
         // setters

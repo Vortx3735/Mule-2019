@@ -1,9 +1,9 @@
 package org.usfirst.frc.team3735.robot;
 
-import org.usfirst.frc.team3735.robot.commands.auto.DistanceStraight;
-import org.usfirst.frc.team3735.robot.commands.auto.DriveToTargetPID;
-import org.usfirst.frc.team3735.robot.commands.auto.FollowTarget;
 
+
+import org.usfirst.frc.team3735.robot.commands.auto.MiddleRightHatch;
+import org.usfirst.frc.team3735.robot.commands.drive.profiling.DistanceStraight;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -12,7 +12,7 @@ public class Autonomous {
 	private Command firstCommand;
 
 	public Autonomous() {
-		firstCommand = new DistanceStraight(100, 20);
+		firstCommand = new MiddleRightHatch();
 		//firstCommand = new FollowTarget();
 		System.out.println("new autonomous created");
 	}

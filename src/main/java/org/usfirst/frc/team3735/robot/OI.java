@@ -7,13 +7,13 @@
 
 package org.usfirst.frc.team3735.robot;
 
-import org.usfirst.frc.team3735.robot.commands.auto.DriveToTargetP;
-import org.usfirst.frc.team3735.robot.commands.auto.DriveToTargetPID;
-import org.usfirst.frc.team3735.robot.commands.auto.FollowTarget;
-import org.usfirst.frc.team3735.robot.commands.auto.MoveToTarget;
+
 import org.usfirst.frc.team3735.robot.util.oi.XboxController;
+import org.usfirst.frc.team3735.robot.commands.drive.profiling.DriveToTargetP;
+import org.usfirst.frc.team3735.robot.commands.drive.profiling.DriveToTargetPID;
+import org.usfirst.frc.team3735.robot.commands.drive.profiling.FollowTarget;
+import org.usfirst.frc.team3735.robot.commands.drive.profiling.MoveToTarget;
 import org.usfirst.frc.team3735.robot.commands.limelight.FlipPipeline;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator

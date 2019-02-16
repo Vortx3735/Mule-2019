@@ -1,4 +1,4 @@
-package org.usfirst.frc.team3735.robot.commands.auto;
+package org.usfirst.frc.team3735.robot.commands.drive.profiling;
 
 import org.usfirst.frc.team3735.robot.Robot;
 import org.usfirst.frc.team3735.robot.util.calc.VortxMath;
@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class MoveToTarget extends Command {
+public class FollowTarget extends Command {
 	
 	// private double finishTime = .3;
 	// private double timeOnTarget = 0;
@@ -17,7 +17,7 @@ public class MoveToTarget extends Command {
 	Func getAngle;
 	int count;
 	
-	public MoveToTarget() {
+	public FollowTarget() {
     	this(new Func(){
 			@Override
 			public double getValue() {
@@ -26,7 +26,7 @@ public class MoveToTarget extends Command {
     	});
     }
 
-	public MoveToTarget(Func fun) {
+	public FollowTarget(Func fun) {
     	requires(Robot.drive);
 		requires(Robot.navigation);
 		requires(Robot.limelight);

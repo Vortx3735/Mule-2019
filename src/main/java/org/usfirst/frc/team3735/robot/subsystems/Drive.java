@@ -1,7 +1,10 @@
 package org.usfirst.frc.team3735.robot.subsystems;
 
-
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team3735.robot.Constants;
@@ -13,6 +16,8 @@ import org.usfirst.frc.team3735.robot.util.settings.BooleanSetting;
 import org.usfirst.frc.team3735.robot.util.settings.Setting;
 import org.usfirst.frc.team3735.robot.Constants.*;
 
+import java.util.Map;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -23,6 +28,19 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 public class Drive extends Subsystem {
 
+	private ShuffleboardTab tab = Shuffleboard.getTab("Drive");	
+	private NetworkTableEntry rightDistanceEntry = tab.add("Distance Driven Right", 0).withWidget(BuiltInWidgets.kTextView).getEntry();	
+	private NetworkTableEntry leftDistanceEntry = tab.add("Distance Driven Left", 0).withWidget(BuiltInWidgets.kTextView).getEntry();
+	private NetworkTableEntry leftVelocity = tab.add("Left Velocity", 0).withWidget(BuiltInWidgets.kDial).withProperties(Map.of("min",-75,"max",75)).getEntry();
+	private NetworkTableEntry rightVelocity = tab.add("Right Velocity", 0).withWidget(BuiltInWidgets.kDial).withProperties(Map.of("min",-75,"max",75)).getEntry();
+	private NetworkTableEntry leftAccel = tab.add("Left Accel", 0).withWidget(BuiltInWidgets.kDial).withProperties(Map.of("min",-75,"max",75)).getEntry();
+	private NetworkTableEntry rightAccel = tab.add("Right Accel", 0).withWidget(BuiltInWidgets.kDial).withProperties(Map.of("min",-75,"max",75)).getEntry();
+	private NetworkTableEntry leftJerk = tab.add("Left Jerk", 0).withWidget(BuiltInWidgets.kDial).withProperties(Map.of("min",-75,"max",75)).getEntry();
+	private NetworkTableEntry rightJerk = tab.add("Right Jerk", 0).withWidget(BuiltInWidgets.kDial).withProperties(Map.of("min",-75,"max",75)).getEntry();
+	private NetworkTableEntry leftOutput = tab.add("Right Drive % Output", 0).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min",0,"max",1)).getEntry();
+	private NetworkTableEntry rightOutput = tab.add("Right Drive % Output", 0).withWidget(BuiltInWidgets.kNumberSlider).withProperties(Map.of("min",0,"max",1)).getEntry();
+
+	
 	public static Setting moveExponent = new Setting("Move Exponent",3);
 	public static Setting turnExponent = new Setting("Turn Exponent", 3);
 	public static Setting scaledMaxMove = new Setting("Scaled Max Move", .8); //changes speed of motor (IMPORTANT)
@@ -204,26 +222,41 @@ double pastRightAccel;
 		double leftInches = l1.getSelectedSensorPosition()*Constants.Drive.InchesPerTick;
 		double rightInches = r1.getSelectedSensorPosition()*Constants.Drive.InchesPerTick;
 
-		SmartDashboard.putNumber("Left Drive Inches", leftInches);
-		SmartDashboard.putNumber("Right Drive Inches", rightInches);
+		// SmartDashboard.putNumber("Left Drive Inches", leftInches);
+		// SmartDashboard.putNumber("Right Drive Inches", rightInches);
+
+		rightDistanceEntry.setDouble(rightInches);
+		leftDistanceEntry.setDouble(leftInches);
+
+
 
 		double leftVelocity = (leftInches - pastLeftInches)/Constants.dt;
 		double rightVelocity = (rightInches - pastRightInches)/Constants.dt;
 		
-		SmartDashboard.putNumber("Left Drive Velocity", leftVelocity);
-		SmartDashboard.putNumber("Right Drive Velocity", rightVelocity);
+		// SmartDashboard.putNumber("Left Drive Velocity", leftVelocity);
+		// SmartDashboard.putNumber("Right Drive Velocity", rightVelocity);
+
+		this.leftVelocity.setDouble(leftVelocity);
+		this.rightVelocity.setDouble(rightVelocity);
+
 
 		double leftAccel = (leftVelocity-pastLeftVel)/Constants.dt;
 		double rightAccel = (rightVelocity-pastRightVel)/Constants.dt;
 
-		SmartDashboard.putNumber("Left Drive Acceleration", leftAccel);
-		SmartDashboard.putNumber("Right Drive Acceleration", rightAccel);
+		// SmartDashboard.putNumber("Left Drive Acceleration", leftAccel);
+		// SmartDashboard.putNumber("Right Drive Acceleration", rightAccel);
+
+		this.leftAccel.setDouble(leftAccel);
+		this.rightAccel.setDouble(rightAccel);
 
 		double leftJerk = (leftAccel - pastLeftAccel)/Constants.dt;
 		double rightJerk = (rightAccel - pastRightAccel)/Constants.dt;
 
-		SmartDashboard.putNumber("Left Drive Jerk", leftJerk);
-		SmartDashboard.putNumber("Right Drive Jerk", rightJerk);
+		// SmartDashboard.putNumber("Left Drive Jerk", leftJerk);
+		// SmartDashboard.putNumber("Right Drive Jerk", rightJerk);
+
+		this.leftJerk.setDouble(leftJerk);
+		this.rightJerk.setDouble(rightJerk);
 
 		pastRightInches = rightInches;
 		pastLeftInches = leftInches;
@@ -234,10 +267,12 @@ double pastRightAccel;
 		pastLeftAccel = leftAccel;
 		pastRightAccel = rightAccel;
 		
-		SmartDashboard.putNumber("Left Drive Percent Output", l1.getMotorOutputPercent());
-		SmartDashboard.putNumber("Right Drive Percent Output", r1.getMotorOutputPercent());
+		// SmartDashboard.putNumber("Left Drive Percent Output", l1.getMotorOutputPercent());
+		// SmartDashboard.putNumber("Right Drive Percent Output", r1.getMotorOutputPercent());
 
-		
+		this.rightOutput.setDouble(r1.getMotorOutputPercent());
+		this.leftOutput.setDouble(l1.getMotorOutputPercent());
+
 		
 		//SmartDashboard.putNumber("Left Target", l1.getClosedLoopTarget(0));
 		//SmartDashboard.putNumber("Right Target", r1.getClosedLoopTarget(0));

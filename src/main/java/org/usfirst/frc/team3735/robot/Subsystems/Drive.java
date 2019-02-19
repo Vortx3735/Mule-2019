@@ -1,6 +1,5 @@
 package org.usfirst.frc.team3735.robot.subsystems;
 
-
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -12,7 +11,7 @@ import org.usfirst.frc.team3735.robot.util.settings.Setting;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 
 
@@ -24,11 +23,11 @@ public class Drive extends Subsystem {
 	public static Setting scaledMaxMove = new Setting("Scaled Max Move", .8);
 	public static Setting scaledMaxTurn = new Setting("Scaled Max Turn", .5);
 	
-	private WPI_TalonSRX l1;
-	private WPI_TalonSRX l2;
+	private WPI_VictorSPX l1;
+	private WPI_VictorSPX l2;
 	
-	private WPI_TalonSRX r1;
-	private WPI_TalonSRX r2;
+	private WPI_VictorSPX r1;
+	private WPI_VictorSPX r2;
 	
 	public static BooleanSetting brakeEnabled = new BooleanSetting("Brake Mode On", false) {
 
@@ -45,16 +44,16 @@ public class Drive extends Subsystem {
 	
 
 	public Drive() {
-		l1 = new WPI_TalonSRX(RobotMap.Drive.leftMotor1);
-		l2 = new WPI_TalonSRX(RobotMap.Drive.leftMotor2);
+		l1 = new WPI_VictorSPX(RobotMap.Drive.leftMotor1);
+		l2 = new WPI_VictorSPX(RobotMap.Drive.leftMotor2);
 
-		r1 = new WPI_TalonSRX(RobotMap.Drive.rightMotor1);
-		r2 = new WPI_TalonSRX(RobotMap.Drive.rightMotor2);
+		r1 = new WPI_VictorSPX(RobotMap.Drive.rightMotor1);
+		r2 = new WPI_VictorSPX(RobotMap.Drive.rightMotor2);
 		
-		l1.setInverted(true);
-		l2.setInverted(true);
-		r1.setInverted(true);
-		r2.setInverted(true);
+		// l1.setInverted(true);
+		// l2.setInverted(true);
+		// r1.setInverted(true);
+		// r2.setInverted(true);
 		
 		setupSlaves();
 		setEnableBrake(true);
@@ -76,22 +75,6 @@ public class Drive extends Subsystem {
 		l2.follow(l1);
 		r2.follow(r1);
 	}
-
-	
-	
-	public void setLeftPeakVoltage(double vol){
-		//l1.configPeakOutputVoltage(vol, -vol);
-		l1.configPeakOutputForward(vol, 0);
-		l1.configPeakOutputReverse(-vol, 0);
-
-	}
-
-	public void setRightPeakVoltage(double vol){
-		//r1.configPeakOutputVoltage(vol, -vol);
-		r1.configPeakOutputForward(vol, 0);
-		r1.configPeakOutputReverse(-vol, 0);
-	}
-
 
 	
 	public double getCurrentPercent(){
@@ -166,12 +149,7 @@ public class Drive extends Subsystem {
 	
 
 	public void setLeftRight(double left, double right) {
-		//System.out.println("Left: " + left + " Right:" + right);
-		//l1.set(left); 
 		l1.set(ControlMode.PercentOutput, left);
-		
-		
-		//r1.set(-1 * right);
 		r1.set(ControlMode.PercentOutput, -right);
 	}
 
@@ -179,19 +157,9 @@ public class Drive extends Subsystem {
 	/******************************************
 	 * The Logs
 	 ******************************************/
-	public void log() {
-		//SmartDashboard.putNumber("Left Drive Position", l1.getSelectedSensorPosition(0));
-		//SmartDashboard.putNumber("Right Drive Position", r1.getSelectedSensorPosition(0));
-		
-		//SmartDashboard.putNumber("Left Drive Velocity", l1.getSelectedSensorVelocity(0));
-		//SmartDashboard.putNumber("Right Drive Velocity", r1.getSelectedSensorVelocity(0));
-		
+	public void log() {		
 		SmartDashboard.putNumber("Left Drive Percent Output", l1.getMotorOutputPercent());
 		SmartDashboard.putNumber("Right Drive Percent Output", r1.getMotorOutputPercent());
-		
-		//SmartDashboard.putNumber("Left Target", l1.getClosedLoopTarget(0));
-		//SmartDashboard.putNumber("Right Target", r1.getClosedLoopTarget(0));
-
 	}
 
 	public void debugLog() {

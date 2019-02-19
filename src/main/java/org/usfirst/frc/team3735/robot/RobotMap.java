@@ -21,19 +21,14 @@ public class RobotMap {
 		public static int rightMotor1 = 	1; //1
 		public static int rightMotor2 = 	8; //8
 
-		public static int topMotor = 2; //8
-
 	}
 
 	public static class Intake {
-		public static int leftMotor = 4;
-		public static int rightMotor = 5;
-
-		public static int leftSol = 1;
-		public static int rightSol = 2;
+		public static int motor = 4;
+		
 	}
 
 	public static class Hatch {
-		public static int solenoid = 4;
+		public static int motor = 5;
 	}
 }

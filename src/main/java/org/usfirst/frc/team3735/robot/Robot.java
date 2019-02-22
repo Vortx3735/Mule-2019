@@ -7,16 +7,11 @@
 
 package org.usfirst.frc.team3735.robot;
 
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team3735.robot.subsystems.ArduinoCo;
 import org.usfirst.frc.team3735.robot.subsystems.Drive;
-import org.usfirst.frc.team3735.robot.subsystems.Jevois;
 import org.usfirst.frc.team3735.robot.subsystems.LimeLight;
 import org.usfirst.frc.team3735.robot.subsystems.Navigation;
 
@@ -50,8 +45,6 @@ public class Robot extends TimedRobot {
 		
 		autoLogic = new Autonomous();
 		
-		//vision = new Jevois();
-
 		oi = new OI();
 		navigation.zeroYaw();
 

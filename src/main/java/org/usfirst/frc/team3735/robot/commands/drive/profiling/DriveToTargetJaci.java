@@ -3,8 +3,6 @@ package org.usfirst.frc.team3735.robot.commands.drive.profiling;
 import org.usfirst.frc.team3735.robot.Robot;
 import org.usfirst.frc.team3735.robot.commands.drive.profiling.PathFollower;
 import org.usfirst.frc.team3735.robot.util.calc.VortxMath;
-import org.usfirst.frc.team3735.robot.util.profiling.Position;
-import org.usfirst.frc.team3735.robot.util.settings.Func;
 
 import edu.wpi.first.wpilibj.command.Command;
 import jaci.pathfinder.Waypoint;
@@ -13,15 +11,21 @@ import jaci.pathfinder.Waypoint;
  *
  */
 public class DriveToTargetJaci extends Command {
-	
-	// private double finishTime = .3;
-    // private double timeOnTarget = 0;
     
     Waypoint target;
     Waypoint current;
     double distanceToTarget;
     double angleToTarget;
     Command pathFollower;
+
+    public double left;
+    public double right;
+    public double angle;
+    public double desiredAngle;
+    public double angleDifference;
+    public double turn;
+
+    public double originalAngleOffset;
 
 	int count;
 	
@@ -41,6 +45,8 @@ public class DriveToTargetJaci extends Command {
         current = new Waypoint(x, y, theta);
         target = getTarget();
         pathFollower = new PathFollower(new Waypoint[] {current, target});
+
+        pathFollower.start();
     }
 
     protected Waypoint getTarget() {
@@ -53,11 +59,8 @@ public class DriveToTargetJaci extends Command {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {   
-		count++;
-		if(count%50==0) {
-			//TODO: Change target
-		} 
+    protected void execute() { 
+       
     }
 
 	// Make this return true when this Command no longer needs to run execute()

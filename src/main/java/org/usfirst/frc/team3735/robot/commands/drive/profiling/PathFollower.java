@@ -3,8 +3,6 @@ package org.usfirst.frc.team3735.robot.commands.drive.profiling;
 import org.usfirst.frc.team3735.robot.Robot;
 import org.usfirst.frc.team3735.robot.Constants;
 import org.usfirst.frc.team3735.robot.util.cmds.VortxCommand;
-import org.usfirst.frc.team3735.robot.util.profiling.Location;
-import org.usfirst.frc.team3735.robot.util.profiling.Position;
 
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;

@@ -3,7 +3,6 @@ package org.usfirst.frc.team3735.robot;
 
 
 import org.usfirst.frc.team3735.robot.commands.auto.MiddleRightHatch;
-import org.usfirst.frc.team3735.robot.commands.drive.profiling.DistanceStraight;
 
 import edu.wpi.first.wpilibj.command.Command;
 

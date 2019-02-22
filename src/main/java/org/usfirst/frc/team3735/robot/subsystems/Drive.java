@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team3735.robot.Constants;
 import org.usfirst.frc.team3735.robot.Robot;
@@ -14,16 +13,12 @@ import org.usfirst.frc.team3735.robot.RobotMap;
 import org.usfirst.frc.team3735.robot.util.hardware.VortxTalon;
 import org.usfirst.frc.team3735.robot.util.settings.BooleanSetting;
 import org.usfirst.frc.team3735.robot.util.settings.Setting;
-import org.usfirst.frc.team3735.robot.Constants.*;
 
 import java.util.Map;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
-
 
 
 public class Drive extends Subsystem {
@@ -49,11 +44,6 @@ public class Drive extends Subsystem {
 	private VortxTalon l1;
 	
 	private VortxTalon r1;
-
-	private double leftAddTurn = 0;
-	private double rightAddTurn = 0;
-	private double visionAssist = 0;
-	private double navxAssist = 0;
 	
 	public static BooleanSetting brakeEnabled = new BooleanSetting("Brake Mode On", false) {
 
@@ -87,9 +77,6 @@ public class Drive extends Subsystem {
 
 	public void setupDriveForSpeedControl() {
 		//setEnableBrake(false);
-
-		this.setNavxAssist(0);
-		this.setVisionAssist(0);
 	}
 
 
@@ -125,22 +112,6 @@ public class Drive extends Subsystem {
 		return (r1.getMotorOutputPercent() + l1.getMotorOutputPercent())/2;	
 	}
 	
-	/*******************************
-	 * Additive setters
-	 *******************************/
-	public void setLeftTurn(double turn){
-    	leftAddTurn = turn;
-    }
-    public void setRightTurn(double turn){
-    	rightAddTurn = turn;
-    }
-	public void setVisionAssist(double error) {
-		visionAssist = (error * Navigation.navVisCo.getValue());
-	}	
-	public void setNavxAssist(double error) {
-		this.navxAssist = (error/180.0) * Navigation.navCo.getValue();
-	}
-
 	/*******************************
 	 * Drive Functions
 	 *******************************/

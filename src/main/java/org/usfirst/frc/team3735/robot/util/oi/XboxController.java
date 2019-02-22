@@ -71,6 +71,7 @@ public class XboxController extends Joystick{
 	}
 	public double getRightTrigger() {
 		return getThrottle();
+		
 	}
 	
 	

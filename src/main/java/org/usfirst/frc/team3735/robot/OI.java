@@ -41,6 +41,8 @@ public class OI {
 
 	public double getDriveTurn() {
 		return -1*main.getLeftX();
+
+		
 		//return main.getRightX();
 	}
 	
